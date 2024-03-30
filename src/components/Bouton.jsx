@@ -10,7 +10,7 @@ const Bouton = ({ text, onClick, isDisabled = false}) => {
     };
     
     const buttonStyle = {
-        backgroundColor: hovered ? '#6328C3' : '#461C89',
+        backgroundColor: isDisabled ? '#CECECE' : (hovered ? '#6328C3' : '#461C89'),
         color: '#fff',
         padding: '10px 20px',
         border: 'none',
