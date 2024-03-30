@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 const ActionSimple = ({ target, text, onClick }) => {
   const handleClick = () => {
-    onClick();
+    onClick(target);
   };
 
   return (
-    <a href={target} style={{ color: '#461C89' }} onClick={handleClick}>
+    <button style={{ color: '#461C89' }} onClick={handleClick}>
       {text}
-    </a>
+    </button>
   );
 };
 
