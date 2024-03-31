@@ -1,7 +1,14 @@
 .bouton {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+
     background-color: #461c89;
     color: white;
-    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;

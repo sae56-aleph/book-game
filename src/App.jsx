@@ -11,7 +11,11 @@ function App() {
     <>
       <div>
         <Titre level={1} text="je test" />
-        <Bouton text="{}" />
+        <Bouton
+          text="Inventaire"
+          icon={BriefcaseFillIcon}
+          iconPosition="right"
+        />
         <Image
           url="https://cdn.futura-sciences.com/cdn-cgi/image/width=1024,quality=50,format=auto/sources/images/dossier/773/01-intro-773.jpg"
           height={100}
