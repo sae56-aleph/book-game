@@ -12,6 +12,7 @@
 .textWhitePrevious {
     color: white;
     opacity: 60%;
+    font-family: sans-serif;
 }
 
 .imageContainer {

@@ -20,14 +20,10 @@ const PageActionSimple = ({
   return (
     <>
       <p className={styles.textWhitePrevious}>
-        <strong>Précendent :</strong> Le voeu sous les Étoiles
+        <strong>Précendent :</strong> {previousChapterName}
       </p>
       <div className={styles.pageContainer}>
-        <Titre
-          level={1}
-          text="Rencontre avec le Chat du Cheshire"
-          className={`${styles.textWhite}`}
-        />
+        <Titre level={1} text={chapterName} className={`${styles.textWhite}`} />
         <Bloc>
           <div className={styles.buttonContainer}>
             <Bouton text="Inventaire" icon={BriefCaseLine} />
@@ -35,40 +31,18 @@ const PageActionSimple = ({
           </div>
           <div className={styles.blocAdapt}>
             <div className={styles.imageContainer}>
-              <Image
-                url="../../public/images/Capture_decran_2024-03-29_134218_-_Copie.png"
-                height={300}
-                width={300}
-              />
+              <Image url={image} height={300} width={300} />
             </div>
-            <p className={styles.text}>
-              Vous décidez d'engager une conversation avec le Chat du Cheshire,
-              curieuse de découvrir ce qu'il a à dire. Il vous observe avec ses
-              yeux brillants, un sourire en coin flottant sur son visage
-              insaisissable.
-            </p>
-            <p className={styles.text}>
-              "Bienvenue, voyageur," dit-il d’une voix mélodieuse. "Je suis le
-              gardien des chemins cachés.“
-            </p>
-            <p className={styles.text}>
-              Cependant, avant que vous ne puissiez assimiler cette énigme, le
-              Chat vous propose un défi sournois.
-            </p>
-            <p className={styles.text}>
-              "Je suis curieux de connaître vos compétences, Alice," dit-il d'un
-              ton taquin. "Prouvez-moi que vous êtes digne de continuer votre
-              voyage en me montrant votre habileté. Vous voyez cette branche
-              suspendue au-dessus de nous ? Je vous défie de l'atteindre en un
-              seul saut. Montrez-moi ce que vous valez."
-            </p>
+            {text.split("\n").map((paragraph) => (
+              <p className={styles.text}>{paragraph}</p>
+            ))}
           </div>
         </Bloc>
         <Bloc>
           <div className={styles.actionContainer}>
-            <ActionSimple text="Tenter le saut avec détermination" />
-            <ActionSimple text="Chercher un moyen alternatif d'atteindre la branche" />
-            <ActionSimple text="Refuser le défi du Chat et chercher une autre voie pour continuer votre quête" />
+            {actions.map((action) => (
+              <ActionSimple text={action.text} />
+            ))}
           </div>
         </Bloc>
       </div>
