@@ -2,6 +2,7 @@ import Title from "./components/Titre";
 import Bouton from "./components/Bouton";
 import Image from "./components/Image";
 import ActionSimple from "./components/ActionSimple";
+import BriefcaseFillIcon from "./icons/briefcase-fill.svg?react";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           text="Cliquez ici"
           onClick={console.log("test")}
         />
+        <BriefcaseFillIcon height={200} width={200} />
       </div>
     </>
   );
