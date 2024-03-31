@@ -1,6 +1,8 @@
 .titre {
     font-family: "Rakkas", serif;
-    font-weight: bold;
+    font-weight: normal;
+    line-height: 100%;
+    margin: 0;
 }
 
 .titre0 {
