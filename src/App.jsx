@@ -3,6 +3,7 @@ import Bouton from "./components/Bouton";
 import Image from "./components/Image";
 import ActionSimple from "./components/ActionSimple";
 import Bloc from "./components/Bloc";
+import BriefcaseFillIcon from "./icons/briefcase-fill.svg?react";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Bloc>
           <p>Enzooooo</p>
         </Bloc>
+        <BriefcaseFillIcon height={200} width={200} />
       </div>
     </>
   );
