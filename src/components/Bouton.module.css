@@ -1,0 +1,18 @@
+.bouton {
+    background-color: #461c89;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bouton:not(.disabled):hover {
+    background-color: #6328c3;
+}
+
+.disabled {
+    background-color: #cecece;
+    cursor: not-allowed;
+}
