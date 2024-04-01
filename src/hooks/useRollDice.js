@@ -2,7 +2,7 @@
  * @file Gère l'ensemble des fonction permettant à un dé de tourner en s'animant.
  * @author Enzo MAROS
  *
- * @typedef {Object} RollDice
+ * @typedef {Object} RollDice - Interface pour lancer un dé, animer son roulement et obtenir le résultat final
  * @property {number} face - La face du dé
  * @property {boolean} rolling - L'état de l'animation (true si le dé est en train de rouler)
  * @property {Function} start - Fonction pour démarrer l'animation
