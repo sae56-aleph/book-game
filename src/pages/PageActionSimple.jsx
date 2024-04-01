@@ -31,7 +31,7 @@ const PageActionSimple = ({
           </div>
           <div className={styles.blocAdapt}>
             <div className={styles.imageContainer}>
-              <Image url={image} height={300} width={300} />
+              <Image url={image} height={400} width={400} />
             </div>
             {text.split("\n").map((paragraph) => (
               <p className={styles.text}>{paragraph}</p>
