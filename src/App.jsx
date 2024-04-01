@@ -5,32 +5,34 @@ import ActionSimple from "./components/ActionSimple";
 import Bloc from "./components/Bloc";
 import BriefcaseFillIcon from "./icons/briefcase-fill.svg?react";
 import De from "./components/De";
+import PageActionSimple from "./pages/PageActionSimple";
 
 function App() {
   return (
     <>
       <div>
-        <Titre level={1} text="je test" />
-        <Bouton
-          text="Inventaire"
-          icon={BriefcaseFillIcon}
-          iconPosition="right"
+        <PageActionSimple
+          chapterName="Rencontre avec le Chat du Cheshire"
+          previousChapterName="Le voeu sous les Étoiles"
+          image="/images/Capture_decran_2024-03-29_134218_-_Copie.png"
+          text={`Vous décidez d'engager une conversation avec le Chat du Cheshire,\
+          curieuse de découvrir ce qu'il a à dire. Il vous observe avec ses\
+          yeux brillants, un sourire en coin flottant sur son visage\
+          insaisissable.\n"Bienvenue, voyageur," dit-il d’une voix mélodieuse. "Je suis le\
+          gardien des chemins cachés.“\nCependant, avant que vous ne puissiez assimiler cette énigme, le\
+          Chat vous propose un défi sournois.\n"Je suis curieux de connaître vos compétences, Alice," dit-il d'un\
+          ton taquin. "Prouvez-moi que vous êtes digne de continuer votre\
+          voyage en me montrant votre habileté. Vous voyez cette branche\
+          suspendue au-dessus de nous ? Je vous défie de l'atteindre en un\
+          seul saut. Montrez-moi ce que vous valez."`}
+          actions={[
+            { text: "Tenter le saut avec détermination" },
+            { text: "Chercher un moyen alternatif d'atteindre la branche" },
+            {
+              text: "Refuser le défi du Chat et chercher une autre voie pour continuer votre quête",
+            },
+          ]}
         />
-        <Image
-          url="https://cdn.futura-sciences.com/cdn-cgi/image/width=1024,quality=50,format=auto/sources/images/dossier/773/01-intro-773.jpg"
-          height={100}
-          width={100}
-        />
-        <ActionSimple
-          target="https://example.com"
-          text="Cliquez ici"
-          onClick={console.log("test")}
-        />
-        <Bloc>
-          <p>Enzooooo</p>
-        </Bloc>
-        <BriefcaseFillIcon height={200} width={200} />
-        <De face="6" />
       </div>
     </>
   );
