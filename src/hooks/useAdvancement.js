@@ -3,7 +3,7 @@
  * @author Enzo MAROS
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Offre une interface pour manipuler les données de progression stockées dans le localStorage.
