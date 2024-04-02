@@ -33,15 +33,17 @@ const PageActionSimple = ({
             <div className={styles.imageContainer}>
               <Image url={image} height={400} width={400} />
             </div>
-            {text.split("\n").map((paragraph) => (
-              <p className={styles.text}>{paragraph}</p>
+            {text.split("\n").map((paragraph, index) => (
+              <p className={styles.text} key={index}>
+                {paragraph}
+              </p>
             ))}
           </div>
         </Bloc>
         <Bloc>
           <div className={styles.actionContainer}>
-            {actions.map((action) => (
-              <ActionSimple text={action.text} />
+            {actions.map((action, index) => (
+              <ActionSimple text={action.text} key={index} />
             ))}
           </div>
         </Bloc>
