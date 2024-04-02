@@ -7,6 +7,7 @@
     color: white;
     font-weight: bold;
     font-size: 1rem;
+    font-family: "Quicksand";
 
     padding: 10px 15px;
     border: none;
@@ -16,7 +17,7 @@
 }
 
 .bouton:not(.disabled):hover {
-    background-color: #6328c3;
+    background-color: #BD69B7;
 }
 
 .disabled {

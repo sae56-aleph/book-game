@@ -3,16 +3,16 @@
 }
 
 .text {
+    font-family: "Quicksand";
     text-align: justify;
     font-size: 20px;
-    font-family: sans-serif;
     line-height: 125%;
 }
 
 .textWhitePrevious {
     color: white;
     opacity: 60%;
-    font-family: sans-serif;
+    font-family: "Quicksand";
 }
 
 .imageContainer {

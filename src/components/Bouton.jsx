@@ -8,12 +8,15 @@ const Bouton = ({
   icon,
   iconPosition = "left",
   isDisabled = false,
+  className,
 }) => {
   const Icon = icon;
 
   return (
     <button
-      className={`${styles.bouton} ${isDisabled && styles.disabled}`}
+      className={`${styles.bouton} ${
+        isDisabled && styles.disabled
+      } ${className}`}
       onClick={onClick}
       disabled={isDisabled}
     >
@@ -30,6 +33,7 @@ Bouton.propTypes = {
   onClick: PropTypes.func,
   text: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default Bouton;

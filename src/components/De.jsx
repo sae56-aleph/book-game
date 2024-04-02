@@ -7,6 +7,11 @@ import Dice4Line from "../icons/dice-4-line.svg?react";
 import Dice5Line from "../icons/dice-5-line.svg?react";
 import Dice6Line from "../icons/dice-6-line.svg?react";
 
+/**
+ * Affiche le dé qui sera utiliser par le joueur
+ * @author Alexie GROSBOIS
+ */
+
 const faces = {
   1: Dice1Line,
   2: Dice2Line,

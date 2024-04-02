@@ -1,0 +1,25 @@
+.selected {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: "Quicksand";
+
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+}
+
+.boutonPink:not(.selected) {
+    background-color: #D57ACE;
+    color: black;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: "Quicksand";
+
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+}

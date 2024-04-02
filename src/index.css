@@ -3,6 +3,11 @@
     src: url("/fonts/Rakkas-Regular.ttf");
 }
 
+@font-face {
+    font-family: "Quicksand";
+    src: url("/fonts/Quicksand-Regular.ttf");
+}
+
 body {
     margin: 0;
     background-image: linear-gradient(129deg, #291745 18.48%, #491845 83.36%);
