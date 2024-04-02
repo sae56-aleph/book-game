@@ -1,0 +1,42 @@
+.textWhite {
+    color: white;
+    text-align: center;
+    margin: 0;
+    width: 80%;
+}
+
+.margin {
+    margin: 10ch;
+}
+
+.homePage {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.9)
+        ),
+        url(/home_background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    justify-content: end;
+    padding-bottom: 130px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.separator {
+    width: 40%;
+}
