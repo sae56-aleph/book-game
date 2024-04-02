@@ -43,7 +43,11 @@ const PageActionSimple = ({
         <Bloc>
           <div className={styles.actionContainer}>
             {actions.map((action, index) => (
-              <ActionSimple text={action.text} key={index} />
+              <ActionSimple
+                text={action.text}
+                key={index}
+                onClick={onNextChapter}
+              />
             ))}
           </div>
         </Bloc>
