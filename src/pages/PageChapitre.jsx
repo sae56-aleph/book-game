@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./PageActionSimple.module.css";
-import PropTypes from "prop-types";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import styles from "./PageChapitre.module.css";
 import Titre from "../components/Titre";
 import Bloc from "../components/Bloc";
 import Image from "../components/Image";
@@ -16,21 +16,43 @@ import BookOpenLine from "../icons/book-open-line.svg?react";
  * @author Alexie GROSBOIS
  */
 
-const PageActionSimple = ({
-  chapterName,
-  previousChapterName,
-  text,
-  image,
-  actions,
-  onNextChapter,
-}) => {
+export async function loader({ params }) {
+  const { chapterId } = params;
+
+  // TODO: Faire un appel à l'API une fois créée
+  const chapter = {
+    chapterName: `#${chapterId} Le Terrier du Lapin`,
+    previousChapterName: "Prologue",
+    text: "Vous vous trouvez dans un étroit terrier, entourée de murs de terre et de racines noueuses.\nLa lumière du jour filtre à travers les interstices, créant des motifs d’ombres étranges sur le sol.\nL’air est humide et empli d’une odeur de terre et de mystère. Devant vous, une porte minuscule en bois vermoulu mène à un couloir sombre. Vous entendez le tic-tac d’une horloge lointaine.\nQue faites-vous ?",
+    image: "/home_background.png",
+    actions: [
+      { text: "Passer par la porte", target: parseInt(chapterId) - 1 },
+      { text: "Explorer la salle", target: parseInt(chapterId) + 1 },
+    ],
+  };
+
+  return chapter;
+}
+
+const PageChapitre = () => {
+  const data = useLoaderData();
+  const navigate = useNavigate();
+
+  const handleClick = (target) => {
+    navigate(`/chapitre/${target}`);
+  };
+
   return (
     <>
       <p className={styles.textWhitePrevious}>
-        <strong>Précendent :</strong> {previousChapterName}
+        <strong>Précendent :</strong> {data.previousChapterName}
       </p>
       <div className={styles.pageContainer}>
-        <Titre level={1} text={chapterName} className={`${styles.textWhite}`} />
+        <Titre
+          level={1}
+          text={data.chapterName}
+          className={`${styles.textWhite}`}
+        />
         <div>
           <TabContainer
             tabs={[
@@ -40,9 +62,9 @@ const PageActionSimple = ({
                   <>
                     <div className={styles.blocAdapt}>
                       <div className={styles.imageContainer}>
-                        <Image url={image} height={400} width={400} />
+                        <Image url={data.image} height={400} width={400} />
                       </div>
-                      {text.split("\n").map((paragraph) => (
+                      {data.text.split("\n").map((paragraph) => (
                         <p className={styles.text}>{paragraph}</p>
                       ))}
                     </div>
@@ -73,11 +95,12 @@ const PageActionSimple = ({
         </div>
         <Bloc>
           <div className={styles.actionContainer}>
-            {actions.map((action, index) => (
+            {data.actions.map((action, index) => (
               <ActionSimple
                 text={action.text}
                 key={index}
-                onClick={onNextChapter}
+                target={action.target}
+                onClick={handleClick}
               />
             ))}
           </div>
@@ -87,13 +110,4 @@ const PageActionSimple = ({
   );
 };
 
-PageActionSimple.propTypes = {
-  chapterName: PropTypes.string,
-  previousChapterName: PropTypes.string,
-  text: PropTypes.string,
-  image: PropTypes.string,
-  actions: PropTypes.array,
-  onNextChapte: PropTypes.func,
-};
-
-export default PageActionSimple;
+export default PageChapitre;
