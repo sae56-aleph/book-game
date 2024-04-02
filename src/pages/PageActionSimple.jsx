@@ -8,6 +8,8 @@ import Bouton from "../components/Bouton";
 import BriefCaseLine from "../icons/briefcase-line.svg?react";
 import BarChart2Line from "../icons/bar-chart-2-line.svg?react";
 import ActionSimple from "../components/ActionSimple";
+import TabContainer from "../components/TabContainer";
+import BookOpenLine from "../icons/book-open-line.svg?react";
 
 const PageActionSimple = ({
   chapterName,
@@ -24,20 +26,46 @@ const PageActionSimple = ({
       </p>
       <div className={styles.pageContainer}>
         <Titre level={1} text={chapterName} className={`${styles.textWhite}`} />
-        <Bloc>
-          <div className={styles.buttonContainer}>
-            <Bouton text="Inventaire" icon={BriefCaseLine} />
-            <Bouton text="Statistiques" icon={BarChart2Line} />
-          </div>
-          <div className={styles.blocAdapt}>
-            <div className={styles.imageContainer}>
-              <Image url={image} height={400} width={400} />
-            </div>
-            {text.split("\n").map((paragraph) => (
-              <p className={styles.text}>{paragraph}</p>
-            ))}
-          </div>
-        </Bloc>
+        <div>
+          <TabContainer
+            tabs={[
+              {
+                title: "Chapitre",
+                content: (
+                  <>
+                    <div className={styles.blocAdapt}>
+                      <div className={styles.imageContainer}>
+                        <Image url={image} height={400} width={400} />
+                      </div>
+                      {text.split("\n").map((paragraph) => (
+                        <p className={styles.text}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </>
+                ),
+                icon: BookOpenLine,
+              },
+              {
+                title: "Inventaire",
+                content: (
+                  <>
+                    <div></div>
+                  </>
+                ),
+                icon: BriefCaseLine,
+              },
+              {
+                title: "Statistiques",
+                content: (
+                  <>
+                    <div></div>
+                  </>
+                ),
+                icon: BarChart2Line,
+              },
+            ]}
+          />
+        </div>
         <Bloc>
           <div className={styles.actionContainer}>
             {actions.map((action) => (
