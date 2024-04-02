@@ -1,0 +1,11 @@
+.field {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 15px;
+}
+
+.error {
+    margin-top: 5px;
+    color: red;
+}
