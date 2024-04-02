@@ -11,6 +11,11 @@ import ActionSimple from "../components/ActionSimple";
 import TabContainer from "../components/TabContainer";
 import BookOpenLine from "../icons/book-open-line.svg?react";
 
+/**
+ * Affiche un chapitre avec choix multiple
+ * @author Alexie GROSBOIS
+ */
+
 const PageActionSimple = ({
   chapterName,
   previousChapterName,

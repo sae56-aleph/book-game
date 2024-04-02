@@ -4,6 +4,11 @@ import Tab from "./Tab";
 import Bloc from "./Bloc";
 import styles from "./TabContainer.module.css";
 
+/**
+ * Prends en paramètre un tableau avec des objets
+ * @author Alexie GROSBOIS
+ */
+
 const TabContainer = ({ tabs }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (

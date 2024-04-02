@@ -3,6 +3,11 @@ import Bouton from "./Bouton";
 import React from "react";
 import styles from "./Tab.module.css";
 
+/**
+ * Bouton permettant de passer d'un onglet à l'autre
+ * @author Alexie GROSBOIS
+ */
+
 const Tab = ({ text, icon, selected = false, onClick }) => {
   return (
     <>
