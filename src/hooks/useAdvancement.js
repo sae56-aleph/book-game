@@ -13,6 +13,10 @@ import { useEffect, useState } from "react";
  * des identifiants différents auront des données différentes.
  */
 class Advancement {
+    /**
+     * @param {number} bookId - Identifiant du livre
+     * @param {Storage} storage - Storage JS à utiliser
+     */
     constructor(bookId, storage) {
         this._bookId = bookId;
         this._storage = storage;
