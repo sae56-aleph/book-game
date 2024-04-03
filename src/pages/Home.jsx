@@ -8,15 +8,6 @@ import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 function HomePage() {
   const storyStarts = true;
 
-  const h1 = {
-    margin: "0 auto",
-  };
-
-  const direction = {
-    display: "flex",
-    flexDirection: "row",
-  };
-
   return (
     <div className={`${styles.homePage}`}>
       <Titre
