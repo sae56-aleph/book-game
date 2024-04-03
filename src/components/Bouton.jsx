@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 /**
- * Titre
+ * Bouton
  * @author Simon FOUCHET
  */
 const Bouton = ({
