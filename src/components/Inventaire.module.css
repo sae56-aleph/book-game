@@ -1,0 +1,11 @@
+.entree {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inventaire {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

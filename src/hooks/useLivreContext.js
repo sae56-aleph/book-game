@@ -21,7 +21,7 @@ const useLivreContext = (bookId) => {
         // Réinitialiser le contexte
         context.setData({
             id: null,
-            variables: [],
+            variables: null,
         });
 
         // Mettre à jour le contexte
@@ -58,12 +58,12 @@ const useLivreContext = (bookId) => {
     };
 
     // Si des données existent, vérifier s'il faut mettre à jour le contexte.
-    // Le useEffect ici permet de ne pas mettre à jour le contexte à chaque rendu.
+    // On ne lance la vérification que si l'identifiant du livre a changé.
     useEffect(() => {
         if (context.bookId !== bookId) {
             updateContext(bookId);
         }
-    }, []);
+    }, [bookId]);
 
     return {
         bookVariables: context.bookVariables,

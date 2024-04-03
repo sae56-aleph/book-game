@@ -10,6 +10,7 @@ import ActionSimple from "../components/ActionSimple";
 import TabContainer from "../components/TabContainer";
 import BookOpenLine from "../icons/book-open-line.svg?react";
 import Layout from "../components/Layout";
+import Inventaire from "../components/Inventaire";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -61,8 +62,10 @@ const PageChapitre = () => {
                   <div className={styles.imageContainer}>
                     <Image url={data.image} height={400} width={400} />
                   </div>
-                  {data.text.split("\n").map((paragraph) => (
-                    <p className={styles.text}>{paragraph}</p>
+                  {data.text.split("\n").map((paragraph, index) => (
+                    <p className={styles.text} key={index}>
+                      {paragraph}
+                    </p>
                   ))}
                 </div>
               ),
@@ -70,7 +73,7 @@ const PageChapitre = () => {
             },
             {
               title: "Inventaire",
-              content: <div></div>,
+              content: <Inventaire />,
               icon: BriefCaseLine,
             },
             {

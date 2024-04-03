@@ -27,12 +27,12 @@ const useAdvancement = (bookId) => {
         const advancement = new Advancement(bookId, window.localStorage);
 
         // Au cas où le livre n'est pas initialisé, on génère les variables
-        bookVariables.forEach((variable) => {
+        bookVariables?.forEach((variable) => {
             advancement.variables.init(variable.nom, variable.valeurInitiale);
         });
 
         setAdvancement(advancement);
-    }, []);
+    }, [bookVariables]);
 
     return advancement;
 };

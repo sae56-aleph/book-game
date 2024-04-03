@@ -5,7 +5,7 @@ import { useState } from "react";
 const LivreProvider = ({ children }) => {
   const [data, setData] = useState({
     id: null,
-    variables: [],
+    variables: null,
   });
 
   const contextValue = {
