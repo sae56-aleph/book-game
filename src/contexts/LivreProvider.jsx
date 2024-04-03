@@ -1,15 +1,17 @@
 import PropTypes from "prop-types";
 import { LivreContext } from "./LivreContext";
+import { useState } from "react";
 
 const LivreProvider = ({ children }) => {
-  const [bookId, setBookId] = useState(null);
-  const [bookVariables, setBookVariables] = useState([]);
+  const [data, setData] = useState({
+    id: null,
+    variables: [],
+  });
 
   const contextValue = {
-    bookId,
-    setBookId,
-    bookVariables,
-    setBookVariables,
+    bookId: data.id,
+    bookVariables: data.variables,
+    setData,
   };
 
   return (
