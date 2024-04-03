@@ -2,15 +2,20 @@ import styles from "./Inventaire.module.css";
 import useAdvancement from "../hooks/useAdvancement";
 import useLivreContext from "../hooks/useLivreContext";
 
+/**
+ * Affiche une icône en fonction de son nom.
+ */
 const Icone = ({ icone }) => {
   if (icone.includes(".png")) {
     return <img height={24} width={24} src={`/images/${icone}`} />;
   } else {
-    console.log(icone);
     return <></>;
   }
 };
 
+/**
+ * Affiche une entrée de l'inventaire.
+ */
 const EntreeInventaire = ({ nom, icone }) => {
   console.log(typeof icone);
   return (
@@ -21,6 +26,10 @@ const EntreeInventaire = ({ nom, icone }) => {
   );
 };
 
+/**
+ * Affiche l'inventaire en fonction des données du localStorage.
+ * @author Enzo MAROS
+ */
 const Inventaire = () => {
   const { bookVariables } = useLivreContext(1);
   const advancement = useAdvancement(1);
