@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import ActionSimple from "./ActionSimple";
 
 /**
- * Titre
+ * Action appelle l'action demander
  * @author Simon FOUCHET
  */
 const Action = ({ type, onNextChapter, options }) => {
