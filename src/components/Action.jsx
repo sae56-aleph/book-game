@@ -3,6 +3,10 @@ import ActionDe from "./ActionDe";
 import PropTypes from "prop-types";
 import ActionSimple from "./ActionSimple";
 
+/**
+ * Action appelle l'action demander
+ * @author Simon FOUCHET
+ */
 const Action = ({ type, onNextChapter, options }) => {
   switch (type) {
     case "de":

@@ -5,6 +5,10 @@ import Titre from "../components/Titre.jsx";
 import ArrowRight from "../icons/arrow-right-line.svg?react";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 
+/**
+ * Page d'accueil
+ * @author Simon FOUCHET
+ */
 function HomePage() {
   const storyStarts = true;
 

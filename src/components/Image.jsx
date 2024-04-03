@@ -2,6 +2,10 @@ import styles from "./Image.module.css";
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Image
+ * @author Simon FOUCHET
+ */
 const Image = ({ url, height, width }) => {
   return (
     <div style={{ height, width }} className={styles.container}>
