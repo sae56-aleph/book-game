@@ -8,7 +8,7 @@ const Action = ({ type, onNextChapter, options }) => {
     case "de":
       return <ActionDe onNextChapter={onNextChapter} {...options} />;
     case "simple":
-      return <ActionSimple onNextChapter={onNextChapter} {...options} />;
+      return <ActionSimple onClick={onNextChapter} {...options} />;
     default:
       throw new Error(`Type d'action inconnu : ${type}`);
   }
