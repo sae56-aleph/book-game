@@ -11,6 +11,7 @@ import TabContainer from "../components/TabContainer";
 import BookOpenLine from "../icons/book-open-line.svg?react";
 import Layout from "../components/Layout";
 import Inventaire from "../components/Inventaire";
+import Statistiques from "../components/Statistiques";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -78,7 +79,7 @@ const PageChapitre = () => {
             },
             {
               title: "Statistiques",
-              content: <div></div>,
+              content: <Statistiques />,
               icon: BarChart2Line,
             },
           ]}

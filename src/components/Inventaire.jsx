@@ -17,7 +17,6 @@ const Icone = ({ icone, fill = true }) => {
  * Affiche une entrée de l'inventaire.
  */
 const EntreeInventaire = ({ nom, icone }) => {
-  console.log(typeof icone);
   return (
     <div className={styles.entree}>
       <Icone icone={icone} />

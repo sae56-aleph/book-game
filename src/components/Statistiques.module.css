@@ -1,0 +1,14 @@
+.statistiques {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+    font-family: "Quicksand";
+}
+
+.entree {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
