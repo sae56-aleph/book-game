@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PageErreur from "./PageErreur"; // Importez votre page d'erreur 404 personnalisée
+import PageErreur from "./PageErreur";
 
 class CustomErrorBoundary extends Component {
   constructor(props) {
@@ -12,13 +12,11 @@ class CustomErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // Vous pouvez également journaliser l'erreur ici
     console.error("Error caught by Error Boundary:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      // Affichez votre page d'erreur personnalisée
       return <PageErreur />;
     }
 
