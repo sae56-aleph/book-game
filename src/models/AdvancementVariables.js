@@ -27,7 +27,7 @@ class AdvancementVariables {
      * @param {string} key - Clé de la variable à récupérer.
      */
     _getItem(key) {
-        return this._storage.getItem(`variables_${key}${this._bookId}`);
+        return this._storage.getItem(`variables_${this._bookId}_${key}`);
     }
 
     /**
@@ -36,7 +36,7 @@ class AdvancementVariables {
      * @param {any} value - Valeur à stocker.
      */
     _setItem(key, value) {
-        this._storage.setItem(`variables_${key}${this._bookId}`, value);
+        this._storage.setItem(`variables_${this._bookId}_${key}`, value);
     }
 
     get(item) {
@@ -53,6 +53,15 @@ class AdvancementVariables {
     init(item, value) {
         if (this.get(item) === null) {
             this.set(item, value);
+        }
+    }
+
+    reset() {
+        for (let i = 0; i < this._storage.length; i++) {
+            const key = this._storage.key(i);
+            if (key.startsWith(`variables_${this._bookId}`)) {
+                this._storage.removeItem(key);
+            }
         }
     }
 }

@@ -30,10 +30,10 @@ const EntreeInventaire = ({ nom, icone }) => {
  * @author Enzo MAROS
  */
 const Inventaire = () => {
-  const { bookVariables } = useLivreContext(1);
+  const livre = useLivreContext(1);
   const advancement = useAdvancement(1);
 
-  if (bookVariables === null || advancement === null) {
+  if (livre?.bookVariables === null || advancement === null) {
     return <p>Chargement...</p>;
   }
 

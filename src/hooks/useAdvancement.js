@@ -19,20 +19,22 @@ import useLivreContext from "./useLivreContext";
  * advancement.chapterName = "Chapitre 3";
  * advancement.previousChapterName = "Chapitre 2";
  */
-const useAdvancement = (bookId) => {
+const useAdvancement = () => {
     const [advancement, setAdvancement] = useState(null);
-    const { bookVariables } = useLivreContext(bookId);
+    const livre = useLivreContext();
 
     useEffect(() => {
-        const advancement = new Advancement(bookId, window.localStorage);
+        if (!livre) return;
+
+        const advancement = new Advancement(livre.id, window.localStorage);
 
         // Au cas où le livre n'est pas initialisé, on génère les variables
-        bookVariables?.forEach((variable) => {
+        livre.variables?.forEach((variable) => {
             advancement.variables.init(variable.nom, variable.valeurInitiale);
         });
 
         setAdvancement(advancement);
-    }, [bookVariables]);
+    }, [livre]);
 
     return advancement;
 };

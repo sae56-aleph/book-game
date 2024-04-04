@@ -59,8 +59,6 @@ const Statistiques = () => {
     return isStats;
   });
 
-  console.log(stats);
-
   //   const iconFill = Array(6).fill(true);
   //   iconFill.splice(4, 2, false, false);
 

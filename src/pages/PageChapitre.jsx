@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import styles from "./PageChapitre.module.css";
 import Titre from "../components/Titre";
 import Bloc from "../components/Bloc";
@@ -12,12 +12,14 @@ import BookOpenLine from "../icons/book-open-line.svg?react";
 import Layout from "../components/Layout";
 import Inventaire from "../components/Inventaire";
 import Statistiques from "../components/Statistiques";
+import useAdvancement from "../hooks/useAdvancement";
 
 export async function loader({ params }) {
   const { chapterId } = params;
 
   // TODO: Faire un appel à l'API une fois créée
   const chapter = {
+    id: chapterId,
     chapterName: `#${chapterId} Le Terrier du Lapin`,
     previousChapterName: "Prologue",
     text: "Vous vous trouvez dans un étroit terrier, entourée de murs de terre et de racines noueuses.\nLa lumière du jour filtre à travers les interstices, créant des motifs d’ombres étranges sur le sol.\nL’air est humide et empli d’une odeur de terre et de mystère. Devant vous, une porte minuscule en bois vermoulu mène à un couloir sombre. Vous entendez le tic-tac d’une horloge lointaine.\nQue faites-vous ?",
@@ -36,8 +38,12 @@ export async function loader({ params }) {
  * @author Alexie GROSBOIS
  */
 const PageChapitre = () => {
+  const advancement = useAdvancement();
   const data = useLoaderData();
   const navigate = useNavigate();
+  const { chapterId } = useParams();
+
+  if (advancement) advancement.chapterId = chapterId;
 
   const handleClick = (target) => {
     navigate(`/chapitre/${target}`);
