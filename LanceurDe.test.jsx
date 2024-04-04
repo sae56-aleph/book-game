@@ -1,8 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
 import LanceurDe from "./src/components/LanceurDe";
+import { act } from "react-dom/test-utils";
 
-vi.useFakeTimers();
+//TEST LANCEURDE
 
 describe("LanceurDe", () => {
   test("renders button with correct text", () => {
@@ -12,16 +14,23 @@ describe("LanceurDe", () => {
   });
 
   test("calls onFinish function when button is clicked", () => {
+    vi.useFakeTimers();
     const onFinish = vi.fn();
-    render(<LanceurDe onFinish={onFinish} />);
+    act(() => {
+      render(<LanceurDe onFinish={onFinish} />);
+    });
     const button = screen.getByRole("button", { name: /lancer le dé/i });
+    act(() => {
+      fireEvent.click(button);
+      vi.runAllTimers();
+      // vi.advanceTimersByTime(20000);
+    });
 
-    fireEvent.click(button);
+    // act(() => {});
+    expect(onFinish).toHaveBeenCalled();
 
     // Avance le temps de 1 milliseconde pour déclencher le onFinish
-    vi.advanceTimersByTime(1);
 
     // Vérifie que la fonction onFinish est appelée après le lancement du dé
-    expect(onFinish).toHaveBeenCalled();
   });
 });
