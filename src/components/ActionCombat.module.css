@@ -1,0 +1,28 @@
+.actionCombat {
+    font-family: "Quicksand";
+}
+
+.dice {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.result {
+    display: flex;
+    flex-direction: row;
+}
+
+.center {
+    align-items: center;
+}
+
+.margin {
+    margin: 0;
+}
+
+.scoreBox {
+    width: 200px;
+    height: 150px;
+    text-align: center;
+}

@@ -4,12 +4,13 @@ import useRollDice from "../hooks/useRollDice";
 import Bouton from "./Bouton";
 import De from "./De";
 import DiceFillIcon from "../icons/dice-line.svg?react";
+import React from "react";
 
 /**
  * Affiche un dé et le bouton pour le lancer
  * @author Enzo MAROS
  */
-const LanceurDe = ({ onFinish }) => {
+const LanceurDe = ({ onFinish, isDisabled }) => {
   const { face, rolling, start } = useRollDice(onFinish);
 
   return (
@@ -18,8 +19,9 @@ const LanceurDe = ({ onFinish }) => {
         icon={DiceFillIcon}
         text={rolling ? "Lancement..." : "Lancer le dé"}
         onClick={() => start()}
-        isDisabled={rolling}
+        isDisabled={rolling || isDisabled}
       />
+
       <De face={face.toString()} />
     </div>
   );
