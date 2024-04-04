@@ -45,14 +45,15 @@ const Action = ({ type, onNextChapter, options }) => {
         return <></>;
       }
     case "ENIGME":
+      console.log(options);
       return (
         <ActionEnigme
+          id={options.idEnigme}
           onNextChapter={onNextChapter}
           target={options.destination}
         />
       );
     case "COMBAT":
-      console.log(options);
       return (
         <ActionCombat
           onNextChapter={onNextChapter}

@@ -28,6 +28,8 @@ function HomePage() {
     handleNavigate(livre?.intro);
   };
 
+  console.log(livre);
+
   return (
     <div className={`${styles.homePage}`}>
       <Titre
