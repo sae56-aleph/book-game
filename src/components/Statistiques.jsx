@@ -31,12 +31,14 @@ const Icone = ({ icone, fill = true }) => {
  * Affiche une entrée de l'inventaire.
  */
 const EntreeStats = ({ nom, icone, value }) => {
+  console.log(value);
   const iconCount = 6;
   const icones = [];
 
-  for (let i = 0; i < iconCount; i++) {
-    icones.push(<Icone key={i} icone={icone} fill={i > value} />);
+  for (let i = 1; i <= iconCount; i++) {
+    icones.unshift(<Icone key={i} icone={icone} fill={i <= value} />);
   }
+
   return (
     <div className={styles.entree}>
       {icones}
@@ -46,21 +48,17 @@ const EntreeStats = ({ nom, icone, value }) => {
 };
 
 const Statistiques = () => {
-  const { bookVariables } = useLivreContext(1);
+  const book = useLivreContext(1);
   const advancement = useAdvancement(1);
 
-  if (bookVariables === null || advancement === null) {
+  if (book?.variables === null || advancement === null) {
     return <p>Chargement...</p>;
   }
 
-  const stats = bookVariables.filter((item) => {
-    const isStats = item.type === "STATISTIQUE";
-    //const itemColor = advancement.variables.get(item.valeurInitiale);
+  const stats = book.variables.filter((item) => {
+    const isStats = item.type === "Statistique";
     return isStats;
   });
-
-  //   const iconFill = Array(6).fill(true);
-  //   iconFill.splice(4, 2, false, false);
 
   return (
     <div className={styles.statistiques}>

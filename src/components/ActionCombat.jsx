@@ -42,7 +42,7 @@ const EtapeJoueur = ({ onFinish }) => {
     <Etape
       title="Lancer les dés pour vous"
       onFinish={(somme) => {
-        onFinish(somme + parseInt(advancement.variables.get("FORCE") - 10));
+        onFinish(somme + parseInt(advancement.variables.get("FORCE")));
       }}
     />
   );

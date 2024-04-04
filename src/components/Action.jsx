@@ -15,7 +15,6 @@ const Action = ({ type, onNextChapter, options }) => {
 
   switch (type) {
     case "DE":
-      console.log(options);
       return (
         <ActionDe
           onNextChapter={onNextChapter}
@@ -45,7 +44,6 @@ const Action = ({ type, onNextChapter, options }) => {
         return <></>;
       }
     case "ENIGME":
-      console.log(options);
       return (
         <ActionEnigme
           id={options.idEnigme}

@@ -60,12 +60,18 @@ class AdvancementVariables {
      * Réinitialise toutes les variables de ce livre
      */
     reset() {
+        const keys = [];
+
         for (let i = 0; i < this._storage.length; i++) {
             const key = this._storage.key(i);
             if (key.startsWith(`variables_${this._bookId}_`)) {
-                this._storage.removeItem(key);
+                keys.push(key);
             }
         }
+
+        keys.forEach((key) => {
+            this._storage.removeItem(key);
+        });
     }
 
     /**

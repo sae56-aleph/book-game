@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import styles from "./PageChapitre.module.css";
 import Titre from "../components/Titre";
@@ -46,8 +46,21 @@ const PageChapitre = () => {
   const data = useLoaderData();
   const navigate = useNavigate();
   const { chapterId } = useParams();
+  const [previousChapterName, setPreviousChapterName] = useState("");
 
-  if (advancement) advancement.chapterId = chapterId;
+  useEffect(() => {
+    if (!advancement) return;
+
+    setPreviousChapterName(advancement.chapterName ?? "Prologue");
+    advancement.chapterId = chapterId;
+    advancement.chapterName = data.titre;
+
+    // Mettre à jour les variables si besoin
+    data.updates.forEach((update) => {
+      const oldValue = parseInt(advancement.variables.get(update.nom));
+      advancement.variables.set(update.nom, parseInt(update.valeur) + oldValue);
+    });
+  }, [advancement, data]);
 
   const handleClick = (target) => {
     navigate(`/chapitre/${target}`);
@@ -56,7 +69,8 @@ const PageChapitre = () => {
   return (
     <Layout>
       <p className={styles.textWhitePrevious}>
-        {/* <strong>Précendent :</strong> {data.previousChapterName} */}
+        <strong>Précendent : </strong>
+        {previousChapterName ?? "Prologue"}
       </p>
       <div className={styles.pageContainer}>
         <Titre level={1} text={data.titre} className={`${styles.textWhite}`} />

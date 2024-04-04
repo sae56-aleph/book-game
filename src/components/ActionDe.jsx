@@ -22,10 +22,8 @@ const ActionDe = ({
 
     setTimeout(() => {
       if (value <= thresholdValue) {
-        console.log("success");
         onNextChapter(targetSuccess);
       } else {
-        console.log("failure");
         onNextChapter(targetFailure);
       }
     }, 2000);
