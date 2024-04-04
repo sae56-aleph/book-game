@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from "react";
 import Advancement from "../models/Advancement";
+import useLivreContext from "./useLivreContext";
 
 /**
  * Génère une instance de la classe Advancement pour le livre donné.
@@ -20,10 +21,18 @@ import Advancement from "../models/Advancement";
  */
 const useAdvancement = (bookId) => {
     const [advancement, setAdvancement] = useState(null);
+    const { bookVariables } = useLivreContext(bookId);
 
     useEffect(() => {
-        setAdvancement(new Advancement(bookId, window.localStorage));
-    }, []);
+        const advancement = new Advancement(bookId, window.localStorage);
+
+        // Au cas où le livre n'est pas initialisé, on génère les variables
+        bookVariables?.forEach((variable) => {
+            advancement.variables.init(variable.nom, variable.valeurInitiale);
+        });
+
+        setAdvancement(advancement);
+    }, [bookVariables]);
 
     return advancement;
 };

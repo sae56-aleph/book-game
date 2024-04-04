@@ -46,6 +46,15 @@ class AdvancementVariables {
     set(item, value) {
         this._setItem(item, value);
     }
+
+    /**
+     * Met à jour la variable que si elle n'existe pas
+     */
+    init(item, value) {
+        if (this.get(item) === null) {
+            this.set(item, value);
+        }
+    }
 }
 
 export default AdvancementVariables;

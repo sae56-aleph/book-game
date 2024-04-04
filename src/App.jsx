@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import PageChapitre, {
   loader as chapterLoader,
 } from "./pages/PageChapitre.jsx";
+import LivreProvider from "./contexts/LivreProvider.jsx";
 
 const router = createHashRouter([
   {
@@ -21,7 +22,11 @@ const router = createHashRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <LivreProvider>
+      <RouterProvider router={router} />;
+    </LivreProvider>
+  );
 }
 
 export default App;
