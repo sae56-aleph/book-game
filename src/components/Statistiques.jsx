@@ -10,7 +10,7 @@ const Icone = ({ icone, fill = true }) => {
         className={styles[iconeFill]}
         height={24}
         width={24}
-        src={`/iconss/${icone}`}
+        src={`/icons/${icone}`}
       />
     );
   } else {
@@ -20,7 +20,7 @@ const Icone = ({ icone, fill = true }) => {
           className={styles[iconeFill]}
           height={24}
           width={24}
-          src={`/iconss/${icone}-fill${iconeFill}.svg`}
+          src={`/icons/${icone}-fill${iconeFill}.svg`}
         />
       </>
     );
