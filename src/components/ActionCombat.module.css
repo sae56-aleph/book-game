@@ -1,5 +1,8 @@
 .actionCombat {
     font-family: "Quicksand";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .dice {

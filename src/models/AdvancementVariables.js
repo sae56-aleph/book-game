@@ -56,13 +56,32 @@ class AdvancementVariables {
         }
     }
 
+    /**
+     * Réinitialise toutes les variables de ce livre
+     */
     reset() {
         for (let i = 0; i < this._storage.length; i++) {
             const key = this._storage.key(i);
-            if (key.startsWith(`variables_${this._bookId}`)) {
+            if (key.startsWith(`variables_${this._bookId}_`)) {
                 this._storage.removeItem(key);
             }
         }
+    }
+
+    /**
+     * Récupère tous les noms des variables de ce livre
+     */
+    all() {
+        const result = {};
+        for (let i = 0; i < this._storage.length; i++) {
+            const key = this._storage.key(i);
+            if (key.startsWith(`variables_${this._bookId}_`)) {
+                const variable = key.split("_")[2];
+                result[variable] = this._storage.getItem(key);
+            }
+        }
+
+        return result;
     }
 }
 

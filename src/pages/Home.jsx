@@ -56,7 +56,7 @@ function HomePage() {
             onClick={() => handleNavigate(advancement.chapterId)}
           />
           <Bouton
-            text="Commencer l’aventure"
+            text="Recommencer l’aventure"
             icon={ArrowGoBack}
             iconPosition="right"
             onClick={handleRestart}

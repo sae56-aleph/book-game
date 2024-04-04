@@ -13,6 +13,7 @@ import Layout from "../components/Layout";
 import Inventaire from "../components/Inventaire";
 import Statistiques from "../components/Statistiques";
 import useAdvancement from "../hooks/useAdvancement";
+import Action from "../components/Action";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -30,7 +31,10 @@ export async function loader({ params }) {
     ],
   };
 
-  return chapter;
+  const url = new URL("section/" + chapterId, import.meta.env.VITE_API_URL);
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
 }
 
 /**
@@ -52,14 +56,10 @@ const PageChapitre = () => {
   return (
     <Layout>
       <p className={styles.textWhitePrevious}>
-        <strong>Précendent :</strong> {data.previousChapterName}
+        {/* <strong>Précendent :</strong> {data.previousChapterName} */}
       </p>
       <div className={styles.pageContainer}>
-        <Titre
-          level={1}
-          text={data.chapterName}
-          className={`${styles.textWhite}`}
-        />
+        <Titre level={1} text={data.titre} className={`${styles.textWhite}`} />
         <TabContainer
           tabs={[
             {
@@ -69,7 +69,7 @@ const PageChapitre = () => {
                   <div className={styles.imageContainer}>
                     <Image url={data.image} height={400} width={400} />
                   </div>
-                  {data.text.split("\n").map((paragraph, index) => (
+                  {data.texte.split("\n").map((paragraph, index) => (
                     <p className={styles.text} key={index}>
                       {paragraph}
                     </p>
@@ -93,11 +93,11 @@ const PageChapitre = () => {
         <Bloc>
           <div className={styles.actionContainer}>
             {data.actions.map((action, index) => (
-              <ActionSimple
-                text={action.text}
+              <Action
                 key={index}
-                target={action.target}
-                onClick={handleClick}
+                options={action}
+                type={action.type}
+                onNextChapter={(target) => handleClick(target)}
               />
             ))}
           </div>

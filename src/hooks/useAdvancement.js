@@ -14,7 +14,7 @@ import useLivreContext from "./useLivreContext";
  * @returns {Advancement|null}
  *
  * @example
- * const advancement = useAdvancement(1);
+ * const advancement = useAdvancement();
  * advancement.chapterId = 3;
  * advancement.chapterName = "Chapitre 3";
  * advancement.previousChapterName = "Chapitre 2";
