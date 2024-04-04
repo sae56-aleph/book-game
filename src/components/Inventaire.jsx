@@ -5,7 +5,7 @@ import useLivreContext from "../hooks/useLivreContext";
 /**
  * Affiche une icône en fonction de son nom.
  */
-const Icone = ({ icone }) => {
+const Icone = ({ icone, fill = true }) => {
   if (icone.includes(".png")) {
     return <img height={24} width={24} src={`/images/${icone}`} />;
   } else {
@@ -21,7 +21,7 @@ const EntreeInventaire = ({ nom, icone }) => {
   return (
     <div className={styles.entree}>
       <Icone icone={icone} />
-      <h3>{nom}</h3>
+      <strong>{nom}</strong>
     </div>
   );
 };
