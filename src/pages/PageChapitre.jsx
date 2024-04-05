@@ -17,22 +17,10 @@ import Action from "../components/Action";
 import useLivreContext from "../hooks/useLivreContext";
 import Bouton from "../components/Bouton";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
+import SpeechBouton from "../components/SpeechBouton";
 
 export async function loader({ params }) {
   const { chapterId } = params;
-
-  // TODO: Faire un appel à l'API une fois créée
-  const chapter = {
-    id: chapterId,
-    chapterName: `#${chapterId} Le Terrier du Lapin`,
-    previousChapterName: "Prologue",
-    text: "Vous vous trouvez dans un étroit terrier, entourée de murs de terre et de racines noueuses.\nLa lumière du jour filtre à travers les interstices, créant des motifs d’ombres étranges sur le sol.\nL’air est humide et empli d’une odeur de terre et de mystère. Devant vous, une porte minuscule en bois vermoulu mène à un couloir sombre. Vous entendez le tic-tac d’une horloge lointaine.\nQue faites-vous ?",
-    image: "/home_background.png",
-    actions: [
-      { text: "Passer par la porte", target: parseInt(chapterId) - 1 },
-      { text: "Explorer la salle", target: parseInt(chapterId) + 1 },
-    ],
-  };
 
   const url = new URL("section/" + chapterId, import.meta.env.VITE_API_URL);
   const response = await fetch(url);
@@ -51,6 +39,8 @@ const PageChapitre = () => {
   const { chapterId } = useParams();
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
+
+  console.log(chapterId);
 
   useEffect(() => {
     if (!advancement) return;
@@ -100,6 +90,7 @@ const PageChapitre = () => {
                       width={350}
                     />
                   </div>
+                  <SpeechBouton chapterId={chapterId} />
                   {data.texte.split("\n").map((paragraph, index) => (
                     <p className={styles.text} key={index}>
                       {paragraph}
