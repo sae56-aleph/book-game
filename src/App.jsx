@@ -11,7 +11,11 @@ import PageError404 from "./components/PageErreur404.jsx";
 import CustomErrorBoundary from "./components/CustomErrorBoundary.jsx";
 import LivreProvider from "./contexts/LivreProvider.jsx";
 
-const router = createHashRouter([
+const createRouter = import.meta.env.DEV
+  ? createHashRouter
+  : createMemoryRouter;
+
+const router = createRouter([
   {
     path: "/",
     element: <Home />,
