@@ -15,6 +15,8 @@ import Statistiques from "../components/Statistiques";
 import useAdvancement from "../hooks/useAdvancement";
 import Action from "../components/Action";
 import useLivreContext from "../hooks/useLivreContext";
+import Bouton from "../components/Bouton";
+import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -68,6 +70,15 @@ const PageChapitre = () => {
     navigate(`/chapitre/${target}`);
   };
 
+  const handleNavigate = (target) => {
+    navigate(`/chapitre/${target}`);
+  };
+
+  const handleRestart = () => {
+    advancement.reset();
+    handleNavigate(livre?.intro);
+  };
+
   return (
     <Layout>
       <p className={styles.textWhitePrevious}>
@@ -112,14 +123,23 @@ const PageChapitre = () => {
         />
         <Bloc>
           <div className={styles.actionContainer}>
-            {data.actions.map((action, index) => (
-              <Action
-                key={index}
-                options={action}
-                type={action.type}
-                onNextChapter={(target) => handleClick(target)}
+            {data.actions.length > 0 ? (
+              data.actions.map((action, index) => (
+                <Action
+                  key={index}
+                  options={action}
+                  type={action.type}
+                  onNextChapter={(target) => handleClick(target)}
+                />
+              ))
+            ) : (
+              <Bouton
+                text="Recommencer l’aventure"
+                icon={ArrowGoBack}
+                iconPosition="right"
+                onClick={handleRestart}
               />
-            ))}
+            )}
           </div>
         </Bloc>
       </div>
