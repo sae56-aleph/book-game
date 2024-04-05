@@ -6,7 +6,7 @@
             rgba(0, 0, 0, 0.1),
             rgba(0, 0, 0, 0.9)
         ),
-        url(/error_404.jpeg);
+        url(/error_404.jpg);
 }
 
 .containerError {
@@ -23,13 +23,13 @@
             rgba(0, 0, 0, 0.9)
         ),
         url(/error_404.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 100vh;
-        width: 100%;
-        margin: 0;
-        justify-content: end;
-        padding-bottom: 130px;
-        box-sizing: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    justify-content: end;
+    padding-bottom: 130px;
+    box-sizing: border-box;
 }

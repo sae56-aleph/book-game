@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styles from "./PageErreur404.module.css";
 
 const PageError404 = () => {
