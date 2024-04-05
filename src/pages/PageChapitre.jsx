@@ -14,6 +14,7 @@ import Inventaire from "../components/Inventaire";
 import Statistiques from "../components/Statistiques";
 import useAdvancement from "../hooks/useAdvancement";
 import Action from "../components/Action";
+import useLivreContext from "../hooks/useLivreContext";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -46,6 +47,7 @@ const PageChapitre = () => {
   const data = useLoaderData();
   const navigate = useNavigate();
   const { chapterId } = useParams();
+  const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
 
   useEffect(() => {
@@ -81,7 +83,11 @@ const PageChapitre = () => {
               content: (
                 <div className={styles.blocAdapt}>
                   <div className={styles.imageContainer}>
-                    <Image url={data.image} height={400} width={400} />
+                    <Image
+                      url={data.image ?? livre.couverture}
+                      height={350}
+                      width={350}
+                    />
                   </div>
                   {data.texte.split("\n").map((paragraph, index) => (
                     <p className={styles.text} key={index}>

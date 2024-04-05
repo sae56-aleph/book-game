@@ -1,4 +1,8 @@
-import { RouterProvider, createHashRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createHashRouter,
+  createMemoryRouter,
+} from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import PageChapitre, {
   loader as chapterLoader,

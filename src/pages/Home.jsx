@@ -29,7 +29,12 @@ function HomePage() {
   };
 
   return (
-    <div className={`${styles.homePage}`}>
+    <div
+      className={`${styles.homePage}`}
+      style={{
+        backgroundImage: `var(--degrade), url("/${livre?.couverture}")`,
+      }}
+    >
       <Titre
         level={0}
         text={livre?.nom || "..."}
