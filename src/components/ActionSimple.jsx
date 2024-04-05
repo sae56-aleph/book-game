@@ -19,7 +19,7 @@ const ActionSimple = ({ target, text, onClick }) => {
 };
 
 ActionSimple.propTypes = {
-  target: PropTypes.string.isRequired,
+  target: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };

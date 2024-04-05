@@ -4,19 +4,40 @@ import Bouton from "../components/Bouton.jsx";
 import Titre from "../components/Titre.jsx";
 import ArrowRight from "../icons/arrow-right-line.svg?react";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
+import useLivreContext from "../hooks/useLivreContext.js";
+import { useNavigate } from "react-router-dom";
+import useAdvancement from "../hooks/useAdvancement.js";
 
 /**
  * Page d'accueil
  * @author Simon FOUCHET
  */
 function HomePage() {
-  const storyStarts = true;
+  const advancement = useAdvancement();
+  const livre = useLivreContext();
+  const navigate = useNavigate();
+
+  const storyStarts = advancement !== null && advancement?.chapterId !== null;
+
+  const handleNavigate = (target) => {
+    navigate(`/chapitre/${target}`);
+  };
+
+  const handleRestart = () => {
+    advancement.reset();
+    handleNavigate(livre?.intro);
+  };
 
   return (
-    <div className={`${styles.homePage}`}>
+    <div
+      className={`${styles.homePage}`}
+      style={{
+        backgroundImage: `var(--degrade), url("/${livre?.couverture}")`,
+      }}
+    >
       <Titre
         level={0}
-        text="Alice au pays des Merveilles"
+        text={livre?.nom || "..."}
         className={`${styles.textWhite}`}
         style={{ textAlign: "center" }}
       />
@@ -27,6 +48,7 @@ function HomePage() {
             text="Commencer l’aventure"
             icon={ArrowRight}
             iconPosition="right"
+            onClick={() => handleNavigate(livre?.intro)}
           />
         </div>
       )}
@@ -36,11 +58,13 @@ function HomePage() {
             text="Continuer l’aventure"
             icon={ArrowRight}
             iconPosition="right"
+            onClick={() => handleNavigate(advancement.chapterId)}
           />
           <Bouton
-            text="Commencer l’aventure"
+            text="Recommencer l’aventure"
             icon={ArrowGoBack}
             iconPosition="right"
+            onClick={handleRestart}
           />
         </div>
       )}

@@ -1,24 +1,23 @@
 import PropTypes from "prop-types";
 import { LivreContext } from "./LivreContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LivreProvider = ({ children }) => {
-  const [data, setData] = useState({
-    id: null,
-    variables: null,
-  });
+  const [data, setData] = useState(null);
 
-  const contextValue = {
-    bookId: data.id,
-    bookVariables: data.variables,
-    setData,
-  };
-
-  return (
-    <LivreContext.Provider value={contextValue}>
-      {children}
-    </LivreContext.Provider>
+  // Initialisation du livre dans le .env
+  const url = new URL(
+    "book/" + import.meta.env.VITE_BOOK_SLUG,
+    import.meta.env.VITE_API_URL
   );
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then(setData);
+  }, []);
+
+  return <LivreContext.Provider value={data}>{children}</LivreContext.Provider>;
 };
 
 LivreProvider.propTypes = {

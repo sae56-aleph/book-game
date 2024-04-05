@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import LanceurDe from "./LanceurDe";
 import PropTypes from "prop-types";
 import useAdvancement from "../hooks/useAdvancement";
+import Bouton from "./Bouton";
 
 const Etape = ({ onFinish, title }) => {
   const [resultatD1, setResultatD1] = useState(null);
@@ -12,7 +13,7 @@ const Etape = ({ onFinish, title }) => {
     if (resultatD1 && resultatD2) {
       const timeout = setTimeout(() => {
         onFinish(resultatD1 + resultatD2);
-      }, 20);
+      }, 2000);
       return () => {
         clearTimeout(timeout);
       };
@@ -41,7 +42,7 @@ const EtapeJoueur = ({ onFinish }) => {
     <Etape
       title="Lancer les dés pour vous"
       onFinish={(somme) => {
-        onFinish(somme + advancement.variables.get("FORCE"));
+        onFinish(somme + parseInt(advancement.variables.get("FORCE")));
       }}
     />
   );
@@ -51,6 +52,14 @@ const ActionCombat = ({ targetSuccess, targetFailure, onNextChapter }) => {
   const [resultatEnnemi, setResultatEnnemi] = useState(null);
   const [resultatJoueur, setResultatJoueur] = useState(null);
   const [etapeJeu, setEtapeJeu] = useState(1);
+
+  const handleFinish = () => {
+    if (resultatEnnemi < resultatJoueur) {
+      onNextChapter(targetSuccess);
+    } else {
+      onNextChapter(targetFailure);
+    }
+  };
 
   return (
     <>
@@ -91,6 +100,9 @@ const ActionCombat = ({ targetSuccess, targetFailure, onNextChapter }) => {
               <p>Votre score</p>
               <h2 style={{ textAlign: "center" }}>{resultatJoueur}</h2>
             </div>
+          </div>
+          <div>
+            <Bouton text="Continuer" onClick={handleFinish} />
           </div>
         </div>
       )}

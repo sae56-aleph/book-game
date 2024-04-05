@@ -30,15 +30,15 @@ const EntreeInventaire = ({ nom, icone }) => {
  * @author Enzo MAROS
  */
 const Inventaire = () => {
-  const { bookVariables } = useLivreContext(1);
-  const advancement = useAdvancement(1);
+  const book = useLivreContext();
+  const advancement = useAdvancement();
 
-  if (bookVariables === null || advancement === null) {
+  if (book?.variables === null || advancement === null) {
     return <p>Chargement...</p>;
   }
 
-  const inventory = bookVariables.filter((item) => {
-    const isInventory = item.type === "INVENTAIRE";
+  const inventory = book.variables.filter((item) => {
+    const isInventory = item.type === "Inventaire";
     const userHasItem = advancement.variables.get(item.nom) > 0;
     return isInventory && userHasItem;
   });
