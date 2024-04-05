@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "./src/App";
-import TabContainer from "./src/components/TabContainer";
-import Tab from "./src/components/Tab";
+import App from "../src/App";
+import TabContainer from "../src/components/TabContainer";
+import Tab from "../src/components/Tab";
 
 const tabs = [
   { title: "Tab 1", icon: "icon1", content: "Contenu Tab 1" },
