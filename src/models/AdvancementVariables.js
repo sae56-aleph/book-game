@@ -27,7 +27,7 @@ class AdvancementVariables {
      * @param {string} key - Clé de la variable à récupérer.
      */
     _getItem(key) {
-        return this._storage.getItem(`variables_${key}${this._bookId}`);
+        return this._storage.getItem(`variables_${this._bookId}_${key}`);
     }
 
     /**
@@ -36,7 +36,7 @@ class AdvancementVariables {
      * @param {any} value - Valeur à stocker.
      */
     _setItem(key, value) {
-        this._storage.setItem(`variables_${key}${this._bookId}`, value);
+        this._storage.setItem(`variables_${this._bookId}_${key}`, value);
     }
 
     get(item) {
@@ -45,6 +45,49 @@ class AdvancementVariables {
 
     set(item, value) {
         this._setItem(item, value);
+    }
+
+    /**
+     * Met à jour la variable que si elle n'existe pas
+     */
+    init(item, value) {
+        if (this.get(item) === null) {
+            this.set(item, value);
+        }
+    }
+
+    /**
+     * Réinitialise toutes les variables de ce livre
+     */
+    reset() {
+        const keys = [];
+
+        for (let i = 0; i < this._storage.length; i++) {
+            const key = this._storage.key(i);
+            if (key.startsWith(`variables_${this._bookId}_`)) {
+                keys.push(key);
+            }
+        }
+
+        keys.forEach((key) => {
+            this._storage.removeItem(key);
+        });
+    }
+
+    /**
+     * Récupère tous les noms des variables de ce livre
+     */
+    all() {
+        const result = {};
+        for (let i = 0; i < this._storage.length; i++) {
+            const key = this._storage.key(i);
+            if (key.startsWith(`variables_${this._bookId}_`)) {
+                const variable = key.split("_")[2];
+                result[variable] = this._storage.getItem(key);
+            }
+        }
+
+        return result;
     }
 }
 

@@ -45,6 +45,13 @@ class Advancement {
         this._storage.setItem(`${key}${this._bookId}`, value);
     }
 
+    reset() {
+        this._storage.removeItem(`chapterId${this._bookId}`);
+        this._storage.removeItem(`chapterName${this._bookId}`);
+        this._storage.removeItem(`previousChapterName${this._bookId}`);
+        this._variables.reset();
+    }
+
     /**
      * Nom du dernier chapitre lu par l'utilisateur.
      * @returns {string}

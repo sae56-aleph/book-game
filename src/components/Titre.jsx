@@ -2,6 +2,10 @@ import styles from "./Titre.module.css";
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Titre
+ * @author Simon FOUCHET
+ */
 const Titre = ({ level, text, className }) => {
   const TagName = `h${Math.min(Math.max(level, 1), 6)}`;
 

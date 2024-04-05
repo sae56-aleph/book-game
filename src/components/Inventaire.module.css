@@ -1,0 +1,12 @@
+.entree {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Quicksand";
+}
+
+.inventaire {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

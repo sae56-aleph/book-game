@@ -2,6 +2,10 @@ import styles from "./Bouton.module.css";
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Bouton
+ * @author Simon FOUCHET
+ */
 const Bouton = ({
   text,
   onClick,

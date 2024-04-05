@@ -1,7 +1,7 @@
 import {
   RouterProvider,
-  createBrowserRouter,
   createHashRouter,
+  createMemoryRouter,
 } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import PageChapitre, {
@@ -9,6 +9,7 @@ import PageChapitre, {
 } from "./pages/PageChapitre.jsx";
 import PageError404 from "./components/PageErreur404.jsx";
 import CustomErrorBoundary from "./components/CustomErrorBoundary.jsx";
+import LivreProvider from "./contexts/LivreProvider.jsx";
 
 const router = createHashRouter([
   {
@@ -29,7 +30,9 @@ const router = createHashRouter([
 function App() {
   return (
     <CustomErrorBoundary>
-      <RouterProvider router={router} />;
+      <LivreProvider>
+        <RouterProvider router={router} />;
+      </LivreProvider>
     </CustomErrorBoundary>
   );
 }
