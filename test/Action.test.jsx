@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Action from "./src/components/Action";
+import Action from "../src/components/Action";
 
 //TEST ACTION
 describe("Action", () => {

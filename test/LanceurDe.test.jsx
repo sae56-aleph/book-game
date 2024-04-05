@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
-import LanceurDe from "./src/components/LanceurDe";
+import LanceurDe from "../src/components/LanceurDe";
 import { act } from "react-dom/test-utils";
 
 //TEST LANCEURDE

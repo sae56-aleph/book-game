@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import TabContainer from "./src/components/TabContainer";
+import TabContainer from "../src/components/TabContainer";
 
 const tabs = [
   { title: "Tab 1", icon: "icon1", content: "Contenu Tab 1" },

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
-import Bouton from "./src/components/Bouton";
+import Bouton from "../src/components/Bouton";
 
 //TEST BOUTON
 describe("Bouton", () => {
