@@ -7,6 +7,8 @@ import Home from "./pages/Home.jsx";
 import PageChapitre, {
   loader as chapterLoader,
 } from "./pages/PageChapitre.jsx";
+import PageError404 from "./components/PageErreur404.jsx";
+import CustomErrorBoundary from "./components/CustomErrorBoundary.jsx";
 import LivreProvider from "./contexts/LivreProvider.jsx";
 
 const router = createHashRouter([
@@ -19,13 +21,19 @@ const router = createHashRouter([
     loader: chapterLoader,
     element: <PageChapitre />,
   },
+  {
+    path: "/*",
+    element: <PageError404 />,
+  },
 ]);
 
 function App() {
   return (
-    <LivreProvider>
-      <RouterProvider router={router} />;
-    </LivreProvider>
+    <CustomErrorBoundary>
+      <LivreProvider>
+        <RouterProvider router={router} />;
+      </LivreProvider>
+    </CustomErrorBoundary>
   );
 }
 

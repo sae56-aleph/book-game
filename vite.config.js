@@ -8,4 +8,9 @@ export default defineConfig({
         react(), // Gère les composants React
         svgr(), // Gère les fichiers SVG
     ],
+    test: {
+        environment: 'jsdom',
+        globals: true,
+        setupFiles: '/src/tests/setup.js', // assuming the test folder is in the root of our project
+    }
 });

@@ -67,6 +67,8 @@ function useRollDice(onFinish) {
 
     // Le useEffect est déclanché à chaque fois que remainingRolls change
     useEffect(() => {
+        console.log("remainingRolls", remainingRolls)
+
         if (remainingRolls == null) return;
         if (remainingRolls === 0) {
             // Arrêter le dé et prévenir le parent que le dé a fini de rouler
