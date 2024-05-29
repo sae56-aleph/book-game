@@ -35,7 +35,7 @@ function App() {
   return (
     <CustomErrorBoundary>
       <LivreProvider>
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
       </LivreProvider>
     </CustomErrorBoundary>
   );
