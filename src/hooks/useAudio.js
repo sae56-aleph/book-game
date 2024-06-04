@@ -26,8 +26,6 @@ const useAudio = ({ url, eager = false }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log("Audio :", audio);
-
     const loadAudio = () => {
         return new Promise((resolve) => {
             setIsLoading(true);

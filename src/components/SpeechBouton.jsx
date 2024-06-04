@@ -14,16 +14,10 @@ const SpeechBouton = ({ chapterId }) => {
   const { isPlaying, togglePlay } = useAudio({ url, eager: false });
 
   useEffect(() => {
-    const url = new URL(
-      "section/" + chapterId + "/audio",
-      import.meta.env.VITE_API_URL
-    );
+    const path = "section/" + chapterId + "/audio";
+    const url = new URL(path, import.meta.env.VITE_API_URL);
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setUrl("/audio/" + data.audio);
-      });
+    setUrl(url.toString());
   }, [chapterId]);
 
   return (
