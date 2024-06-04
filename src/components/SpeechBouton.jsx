@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import MegaphoneFill from "../icons/megaphone-fill.svg?react";
 import PauseLine from "../icons/pause-line.svg?react";
 import useAudio from "../hooks/useAudio";
+import Chargement from "./Chargement";
 
 /**
  * Speech Bouton
@@ -11,7 +12,7 @@ import useAudio from "../hooks/useAudio";
  */
 const SpeechBouton = ({ chapterId }) => {
   const [url, setUrl] = useState(null);
-  const { isPlaying, togglePlay } = useAudio({ url, eager: false });
+  const { isPlaying, isLoading, togglePlay } = useAudio({ url, eager: false });
 
   useEffect(() => {
     const path = "section/" + chapterId + "/audio";
@@ -26,7 +27,9 @@ const SpeechBouton = ({ chapterId }) => {
       onClick={() => togglePlay()}
       style={{ marginBottom: 14 }}
     >
-      {isPlaying ? (
+      {isLoading ? (
+        <Chargement height={18} width={18} />
+      ) : isPlaying ? (
         <PauseLine height={18} width={18} />
       ) : (
         <MegaphoneFill height={18} width={18} />
