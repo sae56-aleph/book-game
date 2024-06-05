@@ -12,17 +12,6 @@ const TabContainer = ({ tabs }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
     <div>
-      <div className={styles.onglet}>
-        {tabs.map((tab, index) => (
-          <Tab
-            text={tab.title}
-            icon={tab.icon}
-            selected={index == selectedIndex}
-            onClick={() => setSelectedIndex(index)}
-            key={index}
-          />
-        ))}
-      </div>
       <Bloc>{tabs[selectedIndex].content}</Bloc>
     </div>
   );

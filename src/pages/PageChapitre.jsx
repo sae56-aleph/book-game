@@ -18,6 +18,7 @@ import useLivreContext from "../hooks/useLivreContext";
 import Bouton from "../components/Bouton";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
+import SideStatHeader from "../components/SideStatHeader";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -77,41 +78,53 @@ const PageChapitre = () => {
       </p>
       <div className={styles.pageContainer}>
         <Titre level={1} text={data.titre} className={`${styles.textWhite}`} />
-        <TabContainer
-          tabs={[
-            {
-              title: "Chapitre",
-              content: (
-                <div className={styles.blocAdapt}>
-                  <div className={styles.imageContainer}>
-                    <Image
-                      url={data.image ?? livre.couverture}
-                      height={350}
-                      width={350}
-                    />
+        <div className={styles.chapterAndStatsContainer}>
+          <TabContainer
+            tabs={[
+              {
+                title: "Chapitre",
+                content: (
+                  <div className={styles.blocAdapt}>
+                    <div className={styles.imageContainer}>
+                      <Image
+                        url={data.image ?? livre.couverture}
+                        height={350}
+                        width={350}
+                      />
+                    </div>
+                    <SpeechBouton chapterId={chapterId} />
+                    {data.texte.split("\n").map((paragraph, index) => (
+                      <p className={styles.text} key={index}>
+                        {paragraph}
+                      </p>
+                    ))}
                   </div>
-                  <SpeechBouton chapterId={chapterId} />
-                  {data.texte.split("\n").map((paragraph, index) => (
-                    <p className={styles.text} key={index}>
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              ),
-              icon: BookOpenLine,
-            },
-            {
-              title: "Inventaire",
-              content: <Inventaire />,
-              icon: BriefCaseLine,
-            },
-            {
-              title: "Statistiques",
-              content: <Statistiques />,
-              icon: BarChart2Line,
-            },
-          ]}
-        />
+                ),
+                icon: BookOpenLine,
+              },
+              // {
+              //   title: "Inventaire",
+              //   content: <Inventaire />,
+              //   icon: BriefCaseLine,
+              // },
+              // {
+              //   title: "Statistiques",
+              //   content: <Statistiques />,
+              //   icon: BarChart2Line,
+              // },
+            ]}
+          />
+          <div className={styles.statsContainer}>
+            <Bloc className={styles.blocStat}>
+              <SideStatHeader title="Inventaire" />
+              <Inventaire />
+            </Bloc>
+            <Bloc className={styles.blocStat}>
+              <SideStatHeader title="Statistiques" />
+              <Statistiques />
+            </Bloc>
+          </div>
+        </div>
         <Bloc>
           <div className={styles.actionContainer}>
             {data.actions.length > 0 ? (

@@ -26,6 +26,17 @@ const EntreeInventaire = ({ nom, icone }) => {
 };
 
 /**
+ * Indique qu'il n'y a pas d'objet(s) dans l'inventaire.
+ */
+const NoEntryInventaire = ({ text }) => {
+  return (
+    <div className={styles.entree}>
+      <p className="noItem">{text}</p>
+    </div>
+  );
+};
+
+/**
  * Affiche l'inventaire en fonction des données du localStorage.
  * @author Enzo MAROS
  */
@@ -45,9 +56,13 @@ const Inventaire = () => {
 
   return (
     <div className={styles.inventaire}>
-      {inventory.map(({ nom, icone }, index) => (
-        <EntreeInventaire key={index} nom={nom} icone={icone} />
-      ))}
+      {inventory.length > 0 ? (
+        inventory.map(({ nom, icone }, index) => (
+          <EntreeInventaire key={index} nom={nom} icone={icone} />
+        ))
+      ) : (
+        <NoEntryInventaire text="Aucun objet" />
+      )}
     </div>
   );
 };
