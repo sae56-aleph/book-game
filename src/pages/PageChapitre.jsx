@@ -43,8 +43,6 @@ const PageChapitre = () => {
   const [previousChapterName, setPreviousChapterName] = useState("");
   const [fontSize, setFontSize] = useState(16);
 
-  console.log(chapterId);
-
   useEffect(() => {
     if (!advancement) return;
 
