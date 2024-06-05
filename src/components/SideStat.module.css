@@ -6,11 +6,18 @@
 .header {
     font-family: "Quicksand";
     font-weight: bolder;
-    margin: auto;
+    font-size: larger;
     text-align: center;
 }
 
 .headerContainer {
     width: 100%;
     margin-bottom: 20px;
+}
+
+.iconAndTitleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
 }

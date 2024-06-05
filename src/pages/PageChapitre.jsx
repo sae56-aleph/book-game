@@ -116,11 +116,11 @@ const PageChapitre = () => {
           />
           <div className={styles.statsContainer}>
             <Bloc className={styles.blocStat}>
-              <SideStatHeader title="Inventaire" />
+              <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
               <Inventaire />
             </Bloc>
             <Bloc className={styles.blocStat}>
-              <SideStatHeader title="Statistiques" />
+              <SideStatHeader title="Statistiques" icon={BarChart2Line} />
               <Statistiques />
             </Bloc>
           </div>

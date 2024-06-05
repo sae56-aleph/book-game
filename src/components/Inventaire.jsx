@@ -30,7 +30,7 @@ const EntreeInventaire = ({ nom, icone }) => {
  */
 const NoEntryInventaire = ({ text }) => {
   return (
-    <div className={styles.entree}>
+    <div className={styles.noEntry}>
       <p className="noItem">{text}</p>
     </div>
   );

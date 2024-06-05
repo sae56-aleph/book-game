@@ -11,6 +11,7 @@
     gap: 15px;
 }
 
-.noItem {
-    color: purple;
+.noEntry {
+    font-family: "Quicksand";
+    color: gray;
 }

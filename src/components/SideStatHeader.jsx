@@ -1,10 +1,15 @@
 import PropTypes from "prop-types";
 import styles from "./SideStat.module.css";
 
-const SideStatHeader = ({ title, children }) => {
+const SideStatHeader = ({ title, icon, children }) => {
+  const Icon = icon;
   return (
     <div className={styles.headerContainer}>
-      <p className={styles.header}>{title}</p>
+      <div className={styles.iconAndTitleContainer}>
+        <Icon height={18} width={18} />
+        <p className={styles.header}>{title}</p>
+      </div>
+
       <hr />
       {children}
     </div>
