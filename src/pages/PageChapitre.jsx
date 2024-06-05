@@ -56,6 +56,10 @@ const PageChapitre = () => {
     });
   }, [advancement, data]);
 
+  useEffect(() => {
+    document.title = data.titre;
+  }, [data]);
+
   const handleClick = (target) => {
     navigate(`/chapitre/${target}`);
   };
