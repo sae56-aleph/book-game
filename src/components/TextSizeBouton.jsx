@@ -5,7 +5,7 @@ import Minus from "../icons/subtract-line.svg?react";
 import TextSizeIcon from "../icons/font-size.svg?react";
 
 /**
- * Speech Bouton
+ * Text Size Bouton
  * @author Simon FOUCHET
  */
 const TextSizeBouton = ({ onIncrease, onDecrease }) => {
