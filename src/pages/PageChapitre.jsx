@@ -18,6 +18,7 @@ import useLivreContext from "../hooks/useLivreContext";
 import Bouton from "../components/Bouton";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
+import useTitle from "../hooks/useTitle";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -56,9 +57,7 @@ const PageChapitre = () => {
     });
   }, [advancement, data]);
 
-  useEffect(() => {
-    document.title = data.titre;
-  }, [data]);
+  useTitle(data.titre);
 
   const handleClick = (target) => {
     navigate(`/chapitre/${target}`);
