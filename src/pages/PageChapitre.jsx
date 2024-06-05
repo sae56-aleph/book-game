@@ -18,6 +18,7 @@ import useLivreContext from "../hooks/useLivreContext";
 import Bouton from "../components/Bouton";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
+import TextSizeBouton from "../components/TextSizeBouton";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -39,6 +40,7 @@ const PageChapitre = () => {
   const { chapterId } = useParams();
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
+  const [fontSize, setFontSize] = useState(16);
 
   console.log(chapterId);
 
@@ -69,6 +71,16 @@ const PageChapitre = () => {
     handleNavigate(livre?.intro);
   };
 
+  useEffect(() => {
+    const element = document.documentElement;
+    element.style.fontSize = `${fontSize}px`;
+  }, [fontSize]);
+
+  const handleIncreaseFontSize = () =>
+    setFontSize((prev) => Math.min(prev + 1, 24));
+  const handleDecreaseFontSize = () =>
+    setFontSize((prev) => Math.max(prev - 1, 12));
+
   return (
     <Layout>
       <p className={styles.textWhitePrevious}>
@@ -90,7 +102,15 @@ const PageChapitre = () => {
                       width={350}
                     />
                   </div>
-                  <SpeechBouton chapterId={chapterId} />
+                  <div className={styles.accessibilityButton}>
+                    <SpeechBouton chapterId={chapterId} />
+                    <div>
+                      <TextSizeBouton
+                        onIncrease={handleIncreaseFontSize}
+                        onDecrease={handleDecreaseFontSize}
+                      />
+                    </div>
+                  </div>
                   {data.texte.split("\n").map((paragraph, index) => (
                     <p className={styles.text} key={index}>
                       {paragraph}
