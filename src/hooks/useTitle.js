@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 
 /**
- * @file Permet de récupérer le titre des chapitres afin de les afficher pour l'onglet web
+ * Permet de récupérer le titre des chapitres afin de les afficher pour l'onglet web
  * @author Alexie Grosbois
  */
-
 const useTitle = (text) => { 
-
     useEffect(() => {
         document.title = text;
       }, [text]);
