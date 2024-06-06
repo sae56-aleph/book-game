@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Plus from "../icons/add-line.svg?react";
 import Minus from "../icons/subtract-line.svg?react";
 import TextSizeIcon from "../icons/font-size.svg?react";
+import useKeyboard from "../hooks/useKeyboard";
 
 /**
  * Text Size Bouton
@@ -10,6 +11,9 @@ import TextSizeIcon from "../icons/font-size.svg?react";
  */
 const TextSizeBouton = ({ onIncrease, onDecrease }) => {
   const buttonStyle = { marginBottom: 14, marginLeft: "1em" };
+
+  useKeyboard([65], onDecrease);
+  useKeyboard([90], onIncrease);
 
   return (
     <>

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react"
 
 const useKeyboard = (keyCodes, callback) => {
-    const ref = useRef(null);
+    console.log(keyCodes)
 
     const handleKeyPress = (event) => {
         if (keyCodes.includes(event.keyCode)) {
+            console.log("Appel du callback")
             callback()
         }
     }
@@ -12,9 +13,7 @@ const useKeyboard = (keyCodes, callback) => {
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress);
         return () => document.removeEventListener('keydown', handleKeyPress);
-    }, []);
-
-    return ref
+    }, [callback]);
 }
 
 export default useKeyboard;

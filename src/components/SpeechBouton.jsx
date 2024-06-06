@@ -5,6 +5,7 @@ import MegaphoneFill from "../icons/megaphone-fill.svg?react";
 import PauseLine from "../icons/pause-line.svg?react";
 import useAudio from "../hooks/useAudio";
 import Chargement from "./Chargement";
+import useKeyboard from "../hooks/useKeyboard";
 
 /**
  * Speech Bouton
@@ -13,6 +14,8 @@ import Chargement from "./Chargement";
 const SpeechBouton = ({ chapterId }) => {
   const [url, setUrl] = useState(null);
   const { isPlaying, isLoading, togglePlay } = useAudio({ url, eager: false });
+
+  useKeyboard([84], togglePlay);
 
   useEffect(() => {
     const path = "section/" + chapterId + "/audio";
