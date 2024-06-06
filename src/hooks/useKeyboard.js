@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 
-const useFocusOnKeyboard = (keyCodes) => {
+const useKeyboard = (keyCodes, callback) => {
     const ref = useRef(null);
 
-    const handleKeyPress = event => {
-        console.log(keyCodes)
+    const handleKeyPress = (event) => {
         if (keyCodes.includes(event.keyCode)) {
-            ref.current?.focus()
+            callback()
         }
-    };
+    }
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress);
@@ -18,4 +17,4 @@ const useFocusOnKeyboard = (keyCodes) => {
     return ref
 }
 
-export default useFocusOnKeyboard;
+export default useKeyboard;
