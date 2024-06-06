@@ -1,18 +1,21 @@
 import styles from "./ActionSimple.module.css";
 import React from "react";
 import PropTypes from "prop-types";
+import useFocusOnKeyboard from "../hooks/useFocusOnKeyboard";
 
 /**
  * Action simple
  * @author Simon FOUCHET
  */
-const ActionSimple = ({ target, text, onClick }) => {
+const ActionSimple = ({ tabIndex, target, text, onClick }) => {
+  const ref = useFocusOnKeyboard([49 + tabIndex, 97 + tabIndex]);
+
   const handleClick = () => {
     onClick(target);
   };
 
   return (
-    <button className={styles.action_simple} onClick={handleClick}>
+    <button ref={ref} className={styles.action_simple} onClick={handleClick}>
       {text}
     </button>
   );
