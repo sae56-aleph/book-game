@@ -8,11 +8,11 @@ import styles from "./TabContainer.module.css";
  * Prends en paramètre un tableau avec des objets
  * @author Alexie GROSBOIS
  */
-const TabContainer = ({ tabs }) => {
+const TabContainer = ({ tabs, style, styleBloc }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
-    <div>
-      <div className={styles.onglet}>
+    <div style={style}>
+      <div className={styles.onglet} style={style}>
         {tabs.map((tab, index) => (
           <Tab
             text={tab.title}
@@ -23,13 +23,14 @@ const TabContainer = ({ tabs }) => {
           />
         ))}
       </div>
-      <Bloc>{tabs[selectedIndex].content}</Bloc>
+      <Bloc style={styleBloc}>{tabs[selectedIndex].content}</Bloc>
     </div>
   );
 };
 
 TabContainer.propTypes = {
   tabs: PropTypes.array.isRequired,
+  style: PropTypes.string,
 };
 
 export default TabContainer;

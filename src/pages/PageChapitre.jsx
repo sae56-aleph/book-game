@@ -20,20 +20,17 @@ import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
 import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
+import useHighContrast from "../hooks/useHighContrast";
+import HighContrastBouton from "../components/HighContrastBouton";
 
 export async function loader({ params }) {
   const { chapterId } = params;
-
   const url = new URL("section/" + chapterId, import.meta.env.VITE_API_URL);
   const response = await fetch(url);
   const data = await response.json();
   return data;
 }
 
-/**
- * Affiche un chapitre avec choix multiple
- * @author Alexie GROSBOIS
- */
 const PageChapitre = () => {
   const advancement = useAdvancement();
   const data = useLoaderData();
@@ -42,17 +39,13 @@ const PageChapitre = () => {
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
   const [fontSize, setFontSize] = useState(16);
-
-  console.log(chapterId);
+  const [isHighContrast, toggleHighContrast] = useHighContrast();
 
   useEffect(() => {
     if (!advancement) return;
-
     setPreviousChapterName(advancement.chapterName ?? "Prologue");
     advancement.chapterId = chapterId;
     advancement.chapterName = data.titre;
-
-    // Mettre à jour les variables si besoin
     data.updates.forEach((update) => {
       const oldValue = parseInt(advancement.variables.get(update.nom));
       advancement.variables.set(update.nom, parseInt(update.valeur) + oldValue);
@@ -79,6 +72,24 @@ const PageChapitre = () => {
     element.style.fontSize = `${fontSize}px`;
   }, [fontSize]);
 
+  useEffect(() => {
+    const element = document.documentElement;
+    const body = document.body;
+    const root = document.getElementById("root");
+
+    if (isHighContrast) {
+      body.style.backgroundColor = "black";
+      body.style.backgroundImage = "none";
+      element.style.backgroundColor = "black";
+      if (root) root.style.backgroundColor = "black";
+    } else {
+      body.style.backgroundColor = "";
+      body.style.backgroundImage =
+        "linear-gradient(129deg, #291745 18.48%, #491845 83.36%)";
+      element.style.backgroundColor = "";
+      if (root) root.style.backgroundColor = "";
+    }
+  }, [isHighContrast]);
   const handleIncreaseFontSize = () =>
     setFontSize((prev) => Math.min(prev + 1, 24));
   const handleDecreaseFontSize = () =>
@@ -90,14 +101,27 @@ const PageChapitre = () => {
         <strong>Précendent : </strong>
         {previousChapterName ?? "Prologue"}
       </p>
-      <div className={styles.pageContainer}>
-        <Titre level={1} text={data.titre} className={`${styles.textWhite}`} />
+      <div
+        className={styles.pageContainer}
+        style={{ backgroundColor: isHighContrast ? "black" : "" }}
+      >
+        <Titre level={1} text={data.titre} className={styles.textWhite} />
         <TabContainer
+          style={{ backgroundColor: isHighContrast ? "black" : "" }}
+          styleBloc={{
+            backgroundColor: isHighContrast ? "black" : "",
+            border: isHighContrast ? "1px solid white" : "",
+          }}
           tabs={[
             {
               title: "Chapitre",
               content: (
-                <div className={styles.blocAdapt}>
+                <div
+                  className={styles.blocAdapt}
+                  style={{
+                    backgroundColor: isHighContrast ? "black" : "",
+                  }}
+                >
                   <div className={styles.imageContainer}>
                     <Image
                       url={data.image ?? livre.couverture}
@@ -107,6 +131,9 @@ const PageChapitre = () => {
                   </div>
                   <div className={styles.accessibilityButton}>
                     <SpeechBouton chapterId={chapterId} />
+                    <HighContrastBouton
+                      toggleHighContrast={toggleHighContrast}
+                    />
                     <div>
                       <TextSizeBouton
                         onIncrease={handleIncreaseFontSize}
@@ -115,7 +142,14 @@ const PageChapitre = () => {
                     </div>
                   </div>
                   {data.texte.split("\n").map((paragraph, index) => (
-                    <p className={styles.text} key={index}>
+                    <p
+                      className={styles.text}
+                      key={index}
+                      style={{
+                        backgroundColor: isHighContrast ? "black" : "",
+                        color: isHighContrast ? "white" : "",
+                      }}
+                    >
                       {paragraph}
                     </p>
                   ))}
@@ -135,8 +169,16 @@ const PageChapitre = () => {
             },
           ]}
         />
-        <Bloc>
-          <div className={styles.actionContainer}>
+        <Bloc
+          style={{
+            backgroundColor: isHighContrast ? "black" : "",
+            border: isHighContrast ? "1px solid white" : "",
+          }}
+        >
+          <div
+            className={styles.actionContainer}
+            style={{ backgroundColor: isHighContrast ? "black" : "" }}
+          >
             {data.actions.length > 0 ? (
               data.actions.map((action, index) => (
                 <Action
@@ -152,6 +194,7 @@ const PageChapitre = () => {
                 icon={ArrowGoBack}
                 iconPosition="right"
                 onClick={handleRestart}
+                style={{ color: isHighContrast ? "white" : "" }}
               />
             )}
           </div>
