@@ -18,7 +18,7 @@ const Icone = ({ icone, fill = true }) => {
  */
 const EntreeInventaire = ({ nom, icone }) => {
   return (
-    <div className={styles.entree}>
+    <div className={styles.entree + " " + styles.objAdded}>
       <Icone icone={icone} />
       <strong>{nom}</strong>
     </div>
