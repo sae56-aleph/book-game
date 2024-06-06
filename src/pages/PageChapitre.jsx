@@ -43,6 +43,11 @@ const PageChapitre = () => {
   const [previousChapterName, setPreviousChapterName] = useState("");
   const [fontSize, setFontSize] = useState(16);
 
+  const imageUrl = new URL(
+    `/section/${chapterId}/image`,
+    import.meta.env.VITE_API_URL
+  );
+
   console.log(chapterId);
 
   useEffect(() => {
@@ -100,7 +105,8 @@ const PageChapitre = () => {
                 <div className={styles.blocAdapt}>
                   <div className={styles.imageContainer}>
                     <Image
-                      url={data.image ?? livre?.couverture}
+                      url={imageUrl.toString()}
+                      fallbackUrl={livre?.couverture}
                       height={350}
                       width={350}
                     />
