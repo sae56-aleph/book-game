@@ -4,7 +4,7 @@
     align-items: center;
 
     background-color: #461c89;
-    border: 1px solid white;
+    border: 1px solid transparent;
     color: white;
     font-weight: bold;
     font-size: 1rem;
@@ -27,4 +27,5 @@
 
 .high_contrast {
     background-color: black;
+    border-color: white;
 }

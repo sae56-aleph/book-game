@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import styles from "./PageChapitre.module.css";
 import Titre from "../components/Titre";
 import Bloc from "../components/Bloc";
@@ -12,15 +12,12 @@ import Layout from "../components/Layout";
 import Inventaire from "../components/Inventaire";
 import Statistiques from "../components/Statistiques";
 import useAdvancement from "../hooks/useAdvancement";
-import Action from "../components/Action";
-import useLivreContext from "../hooks/useLivreContext";
-import Bouton from "../components/Bouton";
-import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
 import SideStatHeader from "../components/SideStatHeader";
 import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
 import HighContrastBouton from "../components/HighContrastBouton";
+import ChapitreNavigation from "../components/ChapitreNavigation";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -34,9 +31,7 @@ const PageChapitre = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const advancement = useAdvancement();
   const data = useLoaderData();
-  const navigate = useNavigate();
   const { chapterId } = useParams();
-  const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
   const imageUrl = new URL(
     `/section/${chapterId}/image`,
@@ -45,9 +40,11 @@ const PageChapitre = () => {
 
   useEffect(() => {
     if (!advancement) return;
+
     setPreviousChapterName(advancement.chapterName ?? "Prologue");
     advancement.chapterId = chapterId;
     advancement.chapterName = data.titre;
+
     data.updates.forEach((update) => {
       const oldValue = parseInt(advancement.variables.get(update.nom));
       advancement.variables.set(update.nom, parseInt(update.valeur) + oldValue);
@@ -55,19 +52,6 @@ const PageChapitre = () => {
   }, [advancement, data]);
 
   useTitle(data.titre);
-
-  const handleClick = (target) => {
-    navigate(`/chapitre/${target}`);
-  };
-
-  const handleNavigate = (target) => {
-    navigate(`/chapitre/${target}`);
-  };
-
-  const handleRestart = () => {
-    advancement.reset();
-    handleNavigate(livre?.intro);
-  };
 
   return (
     <Layout>
@@ -78,18 +62,10 @@ const PageChapitre = () => {
       <div className={styles.pageContainer}>
         <Titre level={1} text={data.titre} className={styles.textWhite} />
         <TabContainer
-          onTabClick={(index) => {
-            setCurrentTab(index);
-          }}
+          onTabClick={setCurrentTab}
           tabs={[
-            {
-              title: "Chapitre",
-              icon: BookOpenLine,
-            },
-            {
-              title: "Inventaire",
-              icon: BriefCaseLine,
-            },
+            { title: "Chapitre", icon: BookOpenLine },
+            { title: "Inventaire", icon: BriefCaseLine },
           ]}
         />
         <div className={styles.chapterAndStatsContainer}>
@@ -127,28 +103,10 @@ const PageChapitre = () => {
             </Bloc>
           </div>
         </div>
-        <Bloc className={currentTab != 0 ? "hideNarrow" : ""}>
-          <div className={styles.actionContainer}>
-            {data.actions.length > 0 ? (
-              data.actions.map((action, index) => (
-                <Action
-                  key={index}
-                  tabIndex={index}
-                  options={action}
-                  type={action.type}
-                  onNextChapter={(target) => handleClick(target)}
-                />
-              ))
-            ) : (
-              <Bouton
-                text="Recommencer l’aventure"
-                icon={ArrowGoBack}
-                iconPosition="right"
-                onClick={handleRestart}
-              />
-            )}
-          </div>
-        </Bloc>
+        <ChapitreNavigation
+          className={currentTab != 0 ? "hideNarrow" : ""}
+          actions={data.actions}
+        />
       </div>
     </Layout>
   );
