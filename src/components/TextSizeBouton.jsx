@@ -1,9 +1,9 @@
-import styles from "./Bouton.module.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Plus from "../icons/add-line.svg?react";
 import Minus from "../icons/subtract-line.svg?react";
 import TextSizeIcon from "../icons/font-size.svg?react";
 import useKeyboard from "../hooks/useKeyboard";
+import Bouton from "./Bouton";
 
 /**
  * Text Size Bouton
@@ -17,23 +17,9 @@ const TextSizeBouton = ({ onIncrease, onDecrease }) => {
 
   return (
     <>
-      <button
-        className={styles.bouton}
-        style={buttonStyle}
-        onClick={onDecrease}
-        aria-label="Decrease text size"
-      >
-        <Minus height={18} width={18} />
-      </button>
+      <Bouton onClick={onDecrease} style={buttonStyle} icon={Minus} />
       <TextSizeIcon style={{ marginLeft: "1em" }} height={18} width={18} />
-      <button
-        className={styles.bouton}
-        style={buttonStyle}
-        onClick={onIncrease}
-        aria-label="Increase text size"
-      >
-        <Plus height={18} width={18} />
-      </button>
+      <Bouton onClick={onIncrease} style={buttonStyle} icon={Plus} />
     </>
   );
 };

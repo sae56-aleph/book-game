@@ -1,13 +1,16 @@
 import styles from "./Bloc.module.css";
 import React from "react";
 import PropTypes from "prop-types";
+import useHighContrast from "../hooks/useHighContrast";
 
 /**
  * Permet d'afficher le contenu du chapitre (texte, image)
  * @author Alexie GROSBOIS
  */
 
-const Bloc = ({ children, className, style, highContrast = false }) => {
+const Bloc = ({ children, className, style }) => {
+  const { highContrast } = useHighContrast();
+
   const highContrastClass = highContrast ? styles.high_contrast : "";
   const blocClass = `${styles.bloc} ${highContrastClass} ${className}`;
 

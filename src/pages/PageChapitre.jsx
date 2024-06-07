@@ -110,10 +110,7 @@ const PageChapitre = () => {
           ]}
         />
         <div className={styles.chapterAndStatsContainer}>
-          <Bloc
-            className={currentTab != 0 ? " hideNarrow" : ""}
-            highContrast={highContrast}
-          >
+          <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
             <div
               className={styles.blocAdapt}
               style={{
@@ -152,20 +149,17 @@ const PageChapitre = () => {
               styles.statsContainer + (currentTab != 1 ? " hideNarrow" : "")
             }
           >
-            <Bloc className={styles.blocStat} highContrast={highContrast}>
+            <Bloc className={styles.blocStat}>
               <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
               <Inventaire />
             </Bloc>
-            <Bloc className={styles.blocStat} highContrast={highContrast}>
+            <Bloc className={styles.blocStat}>
               <SideStatHeader title="Statistiques" icon={BarChart2Line} />
               <Statistiques />
             </Bloc>
           </div>
         </div>
-        <Bloc
-          className={currentTab != 0 ? "hideNarrow" : ""}
-          highContrast={highContrast}
-        >
+        <Bloc className={currentTab != 0 ? "hideNarrow" : ""}>
           <div className={styles.actionContainer}>
             {data.actions.length > 0 ? (
               data.actions.map((action, index) => (
