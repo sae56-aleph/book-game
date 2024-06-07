@@ -6,7 +6,6 @@ import Bloc from "../components/Bloc";
 import Image from "../components/Image";
 import BriefCaseLine from "../icons/briefcase-line.svg?react";
 import BarChart2Line from "../icons/bar-chart-2-line.svg?react";
-import ActionSimple from "../components/ActionSimple";
 import TabContainer from "../components/TabContainer";
 import BookOpenLine from "../icons/book-open-line.svg?react";
 import Layout from "../components/Layout";
@@ -23,7 +22,6 @@ import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
 import useHighContrast from "../hooks/useHighContrast";
 import HighContrastBouton from "../components/HighContrastBouton";
-import useFocusOnKeyboard from "../hooks/useKeyboard";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -130,28 +128,24 @@ const PageChapitre = () => {
             },
           ]}
         />
-        <Bloc
-          style={{
-            backgroundColor: isHighContrast ? "black" : "",
-            border: isHighContrast ? "1px solid white" : "",
-          }}
-        >
-          <div
-            className={styles.actionContainer}
-            style={{ backgroundColor: isHighContrast ? "black" : "" }}
-          >
         <div className={styles.chapterAndStatsContainer}>
-          <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
-            <div className={styles.blocAdapt} 
-                 style={{
-                    backgroundColor: isHighContrast ? "black" : "",
-              }}>
+          <Bloc
+            className={currentTab != 0 ? " hideNarrow" : ""}
+            highContrast={isHighContrast}
+          >
+            <div
+              className={styles.blocAdapt}
+              style={{
+                backgroundColor: isHighContrast ? "black" : "",
+              }}
+            >
               <div className={styles.imageContainer}>
                 <Image url={imageUrl.toString()} height={350} width={350} />
               </div>
               <span className={styles.accessibilityButton}>
                 <SpeechBouton chapterId={chapterId} />
                 <span>
+                  <HighContrastBouton toggleHighContrast={toggleHighContrast} />
                   <TextSizeBouton
                     onIncrease={handleIncreaseFontSize}
                     onDecrease={handleDecreaseFontSize}
@@ -165,7 +159,8 @@ const PageChapitre = () => {
                   style={{
                     backgroundColor: isHighContrast ? "black" : "",
                     color: isHighContrast ? "white" : "",
-                }}>
+                  }}
+                >
                   {paragraph}
                 </p>
               ))}
@@ -176,17 +171,20 @@ const PageChapitre = () => {
               styles.statsContainer + (currentTab != 1 ? " hideNarrow" : "")
             }
           >
-            <Bloc className={styles.blocStat}>
+            <Bloc className={styles.blocStat} highContrast={isHighContrast}>
               <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
               <Inventaire />
             </Bloc>
-            <Bloc className={styles.blocStat}>
+            <Bloc className={styles.blocStat} highContrast={isHighContrast}>
               <SideStatHeader title="Statistiques" icon={BarChart2Line} />
               <Statistiques />
             </Bloc>
           </div>
         </div>
-        <Bloc className={currentTab != 0 ? "hideNarrow" : ""}>
+        <Bloc
+          className={currentTab != 0 ? "hideNarrow" : ""}
+          highContrast={isHighContrast}
+        >
           <div className={styles.actionContainer}>
             {data.actions.length > 0 ? (
               data.actions.map((action, index) => (

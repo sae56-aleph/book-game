@@ -7,9 +7,12 @@ import PropTypes from "prop-types";
  * @author Alexie GROSBOIS
  */
 
-const Bloc = ({ children, className, style }) => {
+const Bloc = ({ children, className, style, highContrast = false }) => {
+  const highContrastClass = highContrast ? styles.high_contrast : "";
+  const blocClass = `${styles.bloc} ${highContrastClass} ${className}`;
+
   return (
-    <div className={`${styles.bloc} ${className}`} style={style}>
+    <div className={blocClass} style={style}>
       {children}
     </div>
   );
