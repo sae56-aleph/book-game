@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
 const useKeyboard = (keyCodes, callback) => {
     const handleKeyPress = (event) => {
