@@ -2,6 +2,7 @@ import styles from "./ActionSimple.module.css";
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import useKeyboard from "../hooks/useKeyboard";
+import useHighContrast from "../hooks/useHighContrast";
 
 /**
  * Action simple
@@ -9,14 +10,18 @@ import useKeyboard from "../hooks/useKeyboard";
  */
 const ActionSimple = ({ tabIndex, target, text, onClick }) => {
   const ref = useRef(null);
+  const { highContrast } = useHighContrast();
   useKeyboard([49 + tabIndex, 97 + tabIndex], () => ref.current?.focus());
+
+  const highContrastStyle = highContrast ? styles.high_contrast : "";
+  const actionClass = `${styles.action_simple} ${highContrastStyle}`;
 
   const handleClick = () => {
     onClick(target);
   };
 
   return (
-    <button ref={ref} className={styles.action_simple} onClick={handleClick}>
+    <button ref={ref} className={actionClass} onClick={handleClick}>
       {text}
     </button>
   );

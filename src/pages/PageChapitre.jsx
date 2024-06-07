@@ -40,7 +40,7 @@ const PageChapitre = () => {
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
   const [fontSize, setFontSize] = useState(16);
-  const { highContrast, toggleHighContrast } = useHighContrast();
+  const { toggleHighContrast } = useHighContrast();
   const imageUrl = new URL(
     `/section/${chapterId}/image`,
     import.meta.env.VITE_API_URL
@@ -88,13 +88,9 @@ const PageChapitre = () => {
         <strong>Précendent : </strong>
         {previousChapterName ?? "Prologue"}
       </p>
-      <div
-        className={styles.pageContainer}
-        style={{ backgroundColor: highContrast ? "black" : "" }}
-      >
+      <div className={styles.pageContainer}>
         <Titre level={1} text={data.titre} className={styles.textWhite} />
         <TabContainer
-          style={{ backgroundColor: highContrast ? "black" : "" }}
           onTabClick={(index) => {
             setCurrentTab(index);
           }}
@@ -111,12 +107,7 @@ const PageChapitre = () => {
         />
         <div className={styles.chapterAndStatsContainer}>
           <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
-            <div
-              className={styles.blocAdapt}
-              style={{
-                backgroundColor: highContrast ? "black" : "",
-              }}
-            >
+            <div className={styles.blocAdapt}>
               <div className={styles.imageContainer}>
                 <Image url={imageUrl.toString()} height={350} width={350} />
               </div>
@@ -131,14 +122,7 @@ const PageChapitre = () => {
                 </span>
               </span>
               {data.texte.split("\n").map((paragraph, index) => (
-                <p
-                  className={styles.text}
-                  key={index}
-                  style={{
-                    backgroundColor: highContrast ? "black" : "",
-                    color: highContrast ? "white" : "",
-                  }}
-                >
+                <p className={styles.text} key={index}>
                   {paragraph}
                 </p>
               ))}
@@ -177,7 +161,6 @@ const PageChapitre = () => {
                 icon={ArrowGoBack}
                 iconPosition="right"
                 onClick={handleRestart}
-                style={{ color: highContrast ? "white" : "" }}
               />
             )}
           </div>

@@ -8,3 +8,7 @@
     font-family: "Quicksand";
     text-decoration: underline;
 }
+
+.high_contrast {
+    color: white;
+}
