@@ -119,15 +119,15 @@ const PageChapitre = () => {
               <div className={styles.imageContainer}>
                 <Image url={imageUrl.toString()} height={350} width={350} />
               </div>
-              <div className={styles.accessibilityButton}>
+              <span className={styles.accessibilityButton}>
                 <SpeechBouton chapterId={chapterId} />
-                <div>
+                <span>
                   <TextSizeBouton
                     onIncrease={handleIncreaseFontSize}
                     onDecrease={handleDecreaseFontSize}
                   />
-                </div>
-              </div>
+                </span>
+              </span>
               {data.texte.split("\n").map((paragraph, index) => (
                 <p className={styles.text} key={index}>
                   {paragraph}

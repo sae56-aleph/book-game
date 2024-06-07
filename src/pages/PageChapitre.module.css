@@ -43,6 +43,7 @@
 .accessibilityButton {
     display: flex;
     justify-content: space-between;
+    min-width: fit-content;
 }
 
 .pageContainer {
