@@ -32,13 +32,17 @@ function randomBetween(min, max) {
  * @param {number} previous - La valeur à éviter
  * @returns {number}
  */
-function randomUntilDifferent(min, max, previous) {
+function randomUntilDifferent(min, max, faces) {
     let next;
-    do {
-        next = randomBetween(min, max);
-    } while (next === previous);
+    let res = faces.map((previous) => {
+        do {
+            next = randomBetween(min, max);
+        } while (next === previous);
 
-    return next;
+        return next;
+    });
+
+    return res;
 }
 
 /**
@@ -46,14 +50,14 @@ function randomUntilDifferent(min, max, previous) {
  * @param {Function} onFinish - Callback appelée lorsque le dé tombe sur sa valeur finale
  * @returns {RollDice}
  */
-function useRollDice(onFinish) {
-    const [face, setFace] = useState(1);
+function useRollDice(qttDes, onFinish) {
+    const [faces, setFaces] = useState(Array(qttDes).fill(1));
     const [rolling, setRolling] = useState(false);
     const [remainingRolls, setRemainingRolls] = useState(null);
 
     const roll = () => {
-        const newFace = randomUntilDifferent(1, 6, face);
-        setFace(Math.floor(newFace));
+        const newFaces = randomUntilDifferent(1, 6, faces);
+        setFaces(newFaces.map(Math.floor));
         setRemainingRolls(remainingRolls - 1);
     };
 
@@ -71,7 +75,7 @@ function useRollDice(onFinish) {
         if (remainingRolls === 0) {
             // Arrêter le dé et prévenir le parent que le dé a fini de rouler
             setRolling(false);
-            onFinish(face);
+            onFinish(faces);
             return;
         }
 
@@ -82,7 +86,7 @@ function useRollDice(onFinish) {
     }, [remainingRolls]);
 
     return {
-        face,
+        faces,
         rolling,
         start,
     };
