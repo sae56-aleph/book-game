@@ -10,7 +10,7 @@ import useEval from "../hooks/useEval";
  * Action appelle l'action demander
  * @author Simon FOUCHET
  */
-const Action = ({ type, onNextChapter, options }) => {
+const Action = ({ type, tabIndex, onNextChapter, options }) => {
   const conditionEval = useEval();
 
   switch (type) {
@@ -29,6 +29,7 @@ const Action = ({ type, onNextChapter, options }) => {
           onClick={onNextChapter}
           target={options.destination}
           text={options.label}
+          tabIndex={tabIndex}
         />
       );
     case "CONDITION":

@@ -18,10 +18,12 @@ import useLivreContext from "../hooks/useLivreContext";
 import Bouton from "../components/Bouton";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
+import SideStatHeader from "../components/SideStatHeader";
 import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
 import useHighContrast from "../hooks/useHighContrast";
 import HighContrastBouton from "../components/HighContrastBouton";
+import useFocusOnKeyboard from "../hooks/useKeyboard";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -32,6 +34,7 @@ export async function loader({ params }) {
 }
 
 const PageChapitre = () => {
+  const [currentTab, setCurrentTab] = useState(0);
   const advancement = useAdvancement();
   const data = useLoaderData();
   const navigate = useNavigate();
@@ -40,6 +43,11 @@ const PageChapitre = () => {
   const [previousChapterName, setPreviousChapterName] = useState("");
   const [fontSize, setFontSize] = useState(16);
   const [isHighContrast, toggleHighContrast] = useHighContrast();
+
+  const imageUrl = new URL(
+    `/section/${chapterId}/image`,
+    import.meta.env.VITE_API_URL
+  );
 
   useEffect(() => {
     if (!advancement) return;
@@ -108,64 +116,17 @@ const PageChapitre = () => {
         <Titre level={1} text={data.titre} className={styles.textWhite} />
         <TabContainer
           style={{ backgroundColor: isHighContrast ? "black" : "" }}
-          styleBloc={{
-            backgroundColor: isHighContrast ? "black" : "",
-            border: isHighContrast ? "1px solid white" : "",
+          onTabClick={(index) => {
+            setCurrentTab(index);
           }}
           tabs={[
             {
               title: "Chapitre",
-              content: (
-                <div
-                  className={styles.blocAdapt}
-                  style={{
-                    backgroundColor: isHighContrast ? "black" : "",
-                  }}
-                >
-                  <div className={styles.imageContainer}>
-                    <Image
-                      url={data.image ?? livre.couverture}
-                      height={350}
-                      width={350}
-                    />
-                  </div>
-                  <div className={styles.accessibilityButton}>
-                    <SpeechBouton chapterId={chapterId} />
-                    <HighContrastBouton
-                      toggleHighContrast={toggleHighContrast}
-                    />
-                    <div>
-                      <TextSizeBouton
-                        onIncrease={handleIncreaseFontSize}
-                        onDecrease={handleDecreaseFontSize}
-                      />
-                    </div>
-                  </div>
-                  {data.texte.split("\n").map((paragraph, index) => (
-                    <p
-                      className={styles.text}
-                      key={index}
-                      style={{
-                        backgroundColor: isHighContrast ? "black" : "",
-                        color: isHighContrast ? "white" : "",
-                      }}
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              ),
               icon: BookOpenLine,
             },
             {
               title: "Inventaire",
-              content: <Inventaire />,
               icon: BriefCaseLine,
-            },
-            {
-              title: "Statistiques",
-              content: <Statistiques />,
-              icon: BarChart2Line,
             },
           ]}
         />
@@ -179,10 +140,59 @@ const PageChapitre = () => {
             className={styles.actionContainer}
             style={{ backgroundColor: isHighContrast ? "black" : "" }}
           >
+        <div className={styles.chapterAndStatsContainer}>
+          <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
+            <div className={styles.blocAdapt} 
+                 style={{
+                    backgroundColor: isHighContrast ? "black" : "",
+              }}>
+              <div className={styles.imageContainer}>
+                <Image url={imageUrl.toString()} height={350} width={350} />
+              </div>
+              <span className={styles.accessibilityButton}>
+                <SpeechBouton chapterId={chapterId} />
+                <span>
+                  <TextSizeBouton
+                    onIncrease={handleIncreaseFontSize}
+                    onDecrease={handleDecreaseFontSize}
+                  />
+                </span>
+              </span>
+              {data.texte.split("\n").map((paragraph, index) => (
+                <p
+                  className={styles.text}
+                  key={index}
+                  style={{
+                    backgroundColor: isHighContrast ? "black" : "",
+                    color: isHighContrast ? "white" : "",
+                }}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </Bloc>
+          <div
+            className={
+              styles.statsContainer + (currentTab != 1 ? " hideNarrow" : "")
+            }
+          >
+            <Bloc className={styles.blocStat}>
+              <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
+              <Inventaire />
+            </Bloc>
+            <Bloc className={styles.blocStat}>
+              <SideStatHeader title="Statistiques" icon={BarChart2Line} />
+              <Statistiques />
+            </Bloc>
+          </div>
+        </div>
+        <Bloc className={currentTab != 0 ? "hideNarrow" : ""}>
+          <div className={styles.actionContainer}>
             {data.actions.length > 0 ? (
               data.actions.map((action, index) => (
                 <Action
                   key={index}
+                  tabIndex={index}
                   options={action}
                   type={action.type}
                   onNextChapter={(target) => handleClick(target)}

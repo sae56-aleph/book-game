@@ -10,3 +10,25 @@
     flex-direction: column;
     gap: 15px;
 }
+
+.noEntry {
+    font-family: "Quicksand";
+    color: gray;
+}
+
+.objAdded {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    animation: lightEffect 1s;
+    border-radius: 5px;
+}
+
+@keyframes lightEffect {
+    0% {
+        background-color: #92c89b;
+    }
+    100% {
+        background-color: transparent;
+    }
+}

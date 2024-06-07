@@ -8,22 +8,27 @@ import styles from "./TabContainer.module.css";
  * Prends en paramètre un tableau avec des objets
  * @author Alexie GROSBOIS
  */
-const TabContainer = ({ tabs, style, styleBloc }) => {
+const TabContainer = ({ tabs, onTabClick, style }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleOnClick = (index) => {
+    setSelectedIndex(index);
+    onTabClick(index);
+  };
+
   return (
-    <div style={style}>
+    <div className="showNarrow" style={style}>
       <div className={styles.onglet} style={style}>
         {tabs.map((tab, index) => (
           <Tab
             text={tab.title}
             icon={tab.icon}
             selected={index == selectedIndex}
-            onClick={() => setSelectedIndex(index)}
+            onClick={() => handleOnClick(index)}
             key={index}
           />
         ))}
       </div>
-      <Bloc style={styleBloc}>{tabs[selectedIndex].content}</Bloc>
     </div>
   );
 };
