@@ -3,55 +3,36 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import MegaphoneFill from "../icons/megaphone-fill.svg?react";
 import PauseLine from "../icons/pause-line.svg?react";
+import useAudio from "../hooks/useAudio";
+import Chargement from "./Chargement";
+import useKeyboard from "../hooks/useKeyboard";
 
 /**
  * Speech Bouton
  * @author Simon FOUCHET
  */
 const SpeechBouton = ({ chapterId }) => {
-  const [audio, setAudio] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [url, setUrl] = useState(null);
+  const { isPlaying, isLoading, togglePlay } = useAudio({ url, eager: false });
+
+  useKeyboard([84], togglePlay);
 
   useEffect(() => {
-    if (audio !== null) {
-      audio.pause();
-      setIsPlaying(false);
-    }
+    const path = "section/" + chapterId + "/audio";
+    const url = new URL(path, import.meta.env.VITE_API_URL);
 
-    const url = new URL(
-      "section/" + chapterId + "/audio",
-      import.meta.env.VITE_API_URL
-    );
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        const audio = new Audio("/audio/" + data.audio);
-        audio.addEventListener("ended", () => setIsPlaying(false));
-
-        setAudio(audio);
-      });
+    setUrl(url.toString());
   }, [chapterId]);
-
-  const handleClick = () => {
-    if (audio === null) return;
-
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-    } else {
-      audio.play();
-      setIsPlaying(true);
-    }
-  };
 
   return (
     <button
-      className={`${styles.bouton} ${audio === null ? styles.disabled : ""}`}
-      onClick={handleClick}
+      className={styles.bouton}
+      onClick={() => togglePlay()}
       style={{ marginBottom: 14 }}
     >
-      {isPlaying ? (
+      {isLoading ? (
+        <Chargement height={18} width={18} />
+      ) : isPlaying ? (
         <PauseLine height={18} width={18} />
       ) : (
         <MegaphoneFill height={18} width={18} />

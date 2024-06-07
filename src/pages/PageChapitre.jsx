@@ -19,6 +19,9 @@ import Bouton from "../components/Bouton";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
 import SideStatHeader from "../components/SideStatHeader";
+import TextSizeBouton from "../components/TextSizeBouton";
+import useTitle from "../hooks/useTitle";
+import useFocusOnKeyboard from "../hooks/useKeyboard";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -41,8 +44,12 @@ const PageChapitre = () => {
   const { chapterId } = useParams();
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
+  const [fontSize, setFontSize] = useState(16);
 
-  console.log(chapterId);
+  const imageUrl = new URL(
+    `/section/${chapterId}/image`,
+    import.meta.env.VITE_API_URL
+  );
 
   useEffect(() => {
     if (!advancement) return;
@@ -58,6 +65,8 @@ const PageChapitre = () => {
     });
   }, [advancement, data]);
 
+  useTitle(data.titre);
+
   const handleClick = (target) => {
     navigate(`/chapitre/${target}`);
   };
@@ -70,6 +79,16 @@ const PageChapitre = () => {
     advancement.reset();
     handleNavigate(livre?.intro);
   };
+
+  useEffect(() => {
+    const element = document.documentElement;
+    element.style.fontSize = `${fontSize}px`;
+  }, [fontSize]);
+
+  const handleIncreaseFontSize = () =>
+    setFontSize((prev) => Math.min(prev + 1, 24));
+  const handleDecreaseFontSize = () =>
+    setFontSize((prev) => Math.max(prev - 1, 12));
 
   return (
     <Layout>
@@ -133,6 +152,7 @@ const PageChapitre = () => {
               data.actions.map((action, index) => (
                 <Action
                   key={index}
+                  tabIndex={index}
                   options={action}
                   type={action.type}
                   onNextChapter={(target) => handleClick(target)}
