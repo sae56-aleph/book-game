@@ -28,6 +28,7 @@ const SpeechBouton = ({ chapterId }) => {
     <Bouton
       onClick={() => togglePlay()}
       style={{ marginBottom: 14 }}
+      title="Synthèse vocale (T)"
       icon={isLoading ? Chargement : isPlaying ? PauseLine : MegaphoneFill}
     />
   );

@@ -56,8 +56,8 @@ const Action = ({ type, tabIndex, onNextChapter, options }) => {
       return (
         <ActionCombat
           onNextChapter={onNextChapter}
-          targetFailure={options.destinationEchec}
-          targetSuccess={options.destination}
+          targetFailure={options.destinationEchec.toString()}
+          targetSuccess={options.destination.toString()}
         />
       );
     default:

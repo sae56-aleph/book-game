@@ -27,9 +27,19 @@ const TextSizeBouton = () => {
 
   return (
     <>
-      <Bouton onClick={decreaseFontSize} style={buttonStyle} icon={Minus} />
+      <Bouton
+        onClick={decreaseFontSize}
+        style={buttonStyle}
+        icon={Minus}
+        title="Diminuer la taille de la police (A)"
+      />
       <TextSizeIcon style={{ marginLeft: "1em" }} height={18} width={18} />
-      <Bouton onClick={increaseFontSize} style={buttonStyle} icon={Plus} />
+      <Bouton
+        onClick={increaseFontSize}
+        style={buttonStyle}
+        icon={Plus}
+        title="Augmenter la taille de la police (Z)"
+      />
     </>
   );
 };

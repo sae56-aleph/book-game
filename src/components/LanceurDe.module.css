@@ -4,3 +4,9 @@
     align-items: center;
     gap: 15px;
 }
+
+.dicesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
