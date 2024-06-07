@@ -20,6 +20,7 @@ import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
 import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
+import useFocusOnKeyboard from "../hooks/useKeyboard";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -145,6 +146,7 @@ const PageChapitre = () => {
               data.actions.map((action, index) => (
                 <Action
                   key={index}
+                  tabIndex={index}
                   options={action}
                   type={action.type}
                   onNextChapter={(target) => handleClick(target)}

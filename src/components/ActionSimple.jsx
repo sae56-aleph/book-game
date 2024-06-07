@@ -1,18 +1,22 @@
 import styles from "./ActionSimple.module.css";
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import useKeyboard from "../hooks/useKeyboard";
 
 /**
  * Action simple
  * @author Simon FOUCHET
  */
-const ActionSimple = ({ target, text, onClick }) => {
+const ActionSimple = ({ tabIndex, target, text, onClick }) => {
+  const ref = useRef(null);
+  useKeyboard([49 + tabIndex, 97 + tabIndex], () => ref.current?.focus());
+
   const handleClick = () => {
     onClick(target);
   };
 
   return (
-    <button className={styles.action_simple} onClick={handleClick}>
+    <button ref={ref} className={styles.action_simple} onClick={handleClick}>
       {text}
     </button>
   );

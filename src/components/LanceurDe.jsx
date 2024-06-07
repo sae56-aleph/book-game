@@ -5,6 +5,7 @@ import Bouton from "./Bouton";
 import De from "./De";
 import DiceFillIcon from "../icons/dice-line.svg?react";
 import React from "react";
+import useKeyboard from "../hooks/useKeyboard";
 
 /**
  * Affiche un dé et le bouton pour le lancer
@@ -12,6 +13,7 @@ import React from "react";
  */
 const LanceurDe = ({ onFinish, isDisabled }) => {
   const { face, rolling, start } = useRollDice(onFinish);
+  useKeyboard([32], start);
 
   return (
     <div className={styles.actionDe}>
