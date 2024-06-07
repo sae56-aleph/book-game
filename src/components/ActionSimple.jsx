@@ -16,9 +16,12 @@ const ActionSimple = ({ tabIndex, target, text, onClick }) => {
   };
 
   return (
-    <button ref={ref} className={styles.action_simple} onClick={handleClick}>
-      {text}
-    </button>
+    <div className={styles.flex}>
+      <kbd className={styles.key}>{tabIndex + 1}</kbd>
+      <button ref={ref} className={styles.action_simple} onClick={handleClick}>
+        {text}
+      </button>
+    </div>
   );
 };
 
