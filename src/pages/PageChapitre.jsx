@@ -18,6 +18,7 @@ import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
 import HighContrastBouton from "../components/HighContrastBouton";
 import ChapitreNavigation from "../components/ChapitreNavigation";
+import TabElement from "../components/TabElement";
 
 export async function loader({ params }) {
   const { chapterId } = params;
@@ -29,15 +30,17 @@ export async function loader({ params }) {
 
 const PageChapitre = () => {
   const [currentTab, setCurrentTab] = useState(0);
+  const [previousChapterName, setPreviousChapterName] = useState("");
+  const { chapterId } = useParams();
   const advancement = useAdvancement();
   const data = useLoaderData();
-  const { chapterId } = useParams();
-  const [previousChapterName, setPreviousChapterName] = useState("");
+
   const imageUrl = new URL(
     `/section/${chapterId}/image`,
     import.meta.env.VITE_API_URL
   );
 
+  useTitle(data.titre);
   useEffect(() => {
     if (!advancement) return;
 
@@ -50,8 +53,6 @@ const PageChapitre = () => {
       advancement.variables.set(update.nom, parseInt(update.valeur) + oldValue);
     });
   }, [advancement, data]);
-
-  useTitle(data.titre);
 
   return (
     <Layout>
@@ -69,29 +70,32 @@ const PageChapitre = () => {
           ]}
         />
         <div className={styles.chapterAndStatsContainer}>
-          <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
-            <div className={styles.blocAdapt}>
-              <div className={styles.imageContainer}>
-                <Image url={imageUrl.toString()} height={350} width={350} />
-              </div>
-              <span className={styles.accessibilityButton}>
-                <SpeechBouton chapterId={chapterId} />
-                <span>
-                  <HighContrastBouton />
-                  <TextSizeBouton />
+          <TabElement currentTab={currentTab} targetTab={0}>
+            <Bloc>
+              <div className={styles.blocAdapt}>
+                <div className={styles.imageContainer}>
+                  <Image url={imageUrl.toString()} height={350} width={350} />
+                </div>
+                <span className={styles.accessibilityButton}>
+                  <SpeechBouton chapterId={chapterId} />
+                  <span>
+                    <HighContrastBouton />
+                    <TextSizeBouton />
+                  </span>
                 </span>
-              </span>
-              {data.texte.split("\n").map((paragraph, index) => (
-                <p className={styles.text} key={index}>
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </Bloc>
-          <div
-            className={
-              styles.statsContainer + (currentTab != 1 ? " hideNarrow" : "")
-            }
+                {data.texte.split("\n").map((paragraph, index) => (
+                  <p className={styles.text} key={index}>
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </Bloc>
+          </TabElement>
+
+          <TabElement
+            className={styles.statsContainer}
+            currentTab={currentTab}
+            targetTab={1}
           >
             <Bloc className={styles.blocStat}>
               <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
@@ -101,7 +105,7 @@ const PageChapitre = () => {
               <SideStatHeader title="Statistiques" icon={BarChart2Line} />
               <Statistiques />
             </Bloc>
-          </div>
+          </TabElement>
         </div>
         <ChapitreNavigation
           className={currentTab != 0 ? "hideNarrow" : ""}
