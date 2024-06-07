@@ -117,11 +117,7 @@ const PageChapitre = () => {
           <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
             <div className={styles.blocAdapt}>
               <div className={styles.imageContainer}>
-                <Image
-                  url={data.image ?? livre?.couverture}
-                  height={350}
-                  width={350}
-                />
+                <Image url={imageUrl.toString()} height={350} width={350} />
               </div>
               <div className={styles.accessibilityButton}>
                 <SpeechBouton chapterId={chapterId} />
