@@ -123,7 +123,15 @@ const PageChapitre = () => {
                   width={350}
                 />
               </div>
-              <SpeechBouton chapterId={chapterId} />
+              <div className={styles.accessibilityButton}>
+                <SpeechBouton chapterId={chapterId} />
+                <div>
+                  <TextSizeBouton
+                    onIncrease={handleIncreaseFontSize}
+                    onDecrease={handleDecreaseFontSize}
+                  />
+                </div>
+              </div>
               {data.texte.split("\n").map((paragraph, index) => (
                 <p className={styles.text} key={index}>
                   {paragraph}
