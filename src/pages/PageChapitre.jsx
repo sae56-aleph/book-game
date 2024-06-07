@@ -118,7 +118,7 @@ const PageChapitre = () => {
             <div className={styles.blocAdapt}>
               <div className={styles.imageContainer}>
                 <Image
-                  url={data.image ?? livre.couverture}
+                  url={data.image ?? livre?.couverture}
                   height={350}
                   width={350}
                 />
