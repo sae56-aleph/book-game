@@ -20,7 +20,6 @@ import SpeechBouton from "../components/SpeechBouton";
 import SideStatHeader from "../components/SideStatHeader";
 import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
-import useHighContrast from "../hooks/useHighContrast";
 import HighContrastBouton from "../components/HighContrastBouton";
 
 export async function loader({ params }) {
@@ -39,8 +38,6 @@ const PageChapitre = () => {
   const { chapterId } = useParams();
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
-  const [fontSize, setFontSize] = useState(16);
-  const { toggleHighContrast } = useHighContrast();
   const imageUrl = new URL(
     `/section/${chapterId}/image`,
     import.meta.env.VITE_API_URL
@@ -71,16 +68,6 @@ const PageChapitre = () => {
     advancement.reset();
     handleNavigate(livre?.intro);
   };
-
-  useEffect(() => {
-    const element = document.documentElement;
-    element.style.fontSize = `${fontSize}px`;
-  }, [fontSize]);
-
-  const handleIncreaseFontSize = () =>
-    setFontSize((prev) => Math.min(prev + 1, 24));
-  const handleDecreaseFontSize = () =>
-    setFontSize((prev) => Math.max(prev - 1, 12));
 
   return (
     <Layout>
@@ -114,11 +101,8 @@ const PageChapitre = () => {
               <span className={styles.accessibilityButton}>
                 <SpeechBouton chapterId={chapterId} />
                 <span>
-                  <HighContrastBouton toggleHighContrast={toggleHighContrast} />
-                  <TextSizeBouton
-                    onIncrease={handleIncreaseFontSize}
-                    onDecrease={handleDecreaseFontSize}
-                  />
+                  <HighContrastBouton />
+                  <TextSizeBouton />
                 </span>
               </span>
               {data.texte.split("\n").map((paragraph, index) => (
