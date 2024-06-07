@@ -40,8 +40,7 @@ const PageChapitre = () => {
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
   const [fontSize, setFontSize] = useState(16);
-  const [isHighContrast, toggleHighContrast] = useHighContrast();
-
+  const { highContrast, toggleHighContrast } = useHighContrast();
   const imageUrl = new URL(
     `/section/${chapterId}/image`,
     import.meta.env.VITE_API_URL
@@ -78,24 +77,6 @@ const PageChapitre = () => {
     element.style.fontSize = `${fontSize}px`;
   }, [fontSize]);
 
-  useEffect(() => {
-    const element = document.documentElement;
-    const body = document.body;
-    const root = document.getElementById("root");
-
-    if (isHighContrast) {
-      body.style.backgroundColor = "black";
-      body.style.backgroundImage = "none";
-      element.style.backgroundColor = "black";
-      if (root) root.style.backgroundColor = "black";
-    } else {
-      body.style.backgroundColor = "";
-      body.style.backgroundImage =
-        "linear-gradient(129deg, #291745 18.48%, #491845 83.36%)";
-      element.style.backgroundColor = "";
-      if (root) root.style.backgroundColor = "";
-    }
-  }, [isHighContrast]);
   const handleIncreaseFontSize = () =>
     setFontSize((prev) => Math.min(prev + 1, 24));
   const handleDecreaseFontSize = () =>
@@ -109,11 +90,11 @@ const PageChapitre = () => {
       </p>
       <div
         className={styles.pageContainer}
-        style={{ backgroundColor: isHighContrast ? "black" : "" }}
+        style={{ backgroundColor: highContrast ? "black" : "" }}
       >
         <Titre level={1} text={data.titre} className={styles.textWhite} />
         <TabContainer
-          style={{ backgroundColor: isHighContrast ? "black" : "" }}
+          style={{ backgroundColor: highContrast ? "black" : "" }}
           onTabClick={(index) => {
             setCurrentTab(index);
           }}
@@ -131,12 +112,12 @@ const PageChapitre = () => {
         <div className={styles.chapterAndStatsContainer}>
           <Bloc
             className={currentTab != 0 ? " hideNarrow" : ""}
-            highContrast={isHighContrast}
+            highContrast={highContrast}
           >
             <div
               className={styles.blocAdapt}
               style={{
-                backgroundColor: isHighContrast ? "black" : "",
+                backgroundColor: highContrast ? "black" : "",
               }}
             >
               <div className={styles.imageContainer}>
@@ -157,8 +138,8 @@ const PageChapitre = () => {
                   className={styles.text}
                   key={index}
                   style={{
-                    backgroundColor: isHighContrast ? "black" : "",
-                    color: isHighContrast ? "white" : "",
+                    backgroundColor: highContrast ? "black" : "",
+                    color: highContrast ? "white" : "",
                   }}
                 >
                   {paragraph}
@@ -171,11 +152,11 @@ const PageChapitre = () => {
               styles.statsContainer + (currentTab != 1 ? " hideNarrow" : "")
             }
           >
-            <Bloc className={styles.blocStat} highContrast={isHighContrast}>
+            <Bloc className={styles.blocStat} highContrast={highContrast}>
               <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
               <Inventaire />
             </Bloc>
-            <Bloc className={styles.blocStat} highContrast={isHighContrast}>
+            <Bloc className={styles.blocStat} highContrast={highContrast}>
               <SideStatHeader title="Statistiques" icon={BarChart2Line} />
               <Statistiques />
             </Bloc>
@@ -183,7 +164,7 @@ const PageChapitre = () => {
         </div>
         <Bloc
           className={currentTab != 0 ? "hideNarrow" : ""}
-          highContrast={isHighContrast}
+          highContrast={highContrast}
         >
           <div className={styles.actionContainer}>
             {data.actions.length > 0 ? (
@@ -202,7 +183,7 @@ const PageChapitre = () => {
                 icon={ArrowGoBack}
                 iconPosition="right"
                 onClick={handleRestart}
-                style={{ color: isHighContrast ? "white" : "" }}
+                style={{ color: highContrast ? "white" : "" }}
               />
             )}
           </div>
