@@ -51,3 +51,21 @@
     gap: 30px;
     margin-bottom: 20px;
 }
+
+.chapterAndStatsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.statsContainer {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blocStat {
+    flex: 1;
+}

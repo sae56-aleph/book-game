@@ -18,6 +18,7 @@ import useLivreContext from "../hooks/useLivreContext";
 import Bouton from "../components/Bouton";
 import ArrowGoBack from "../icons/arrow-go-back-line.svg?react";
 import SpeechBouton from "../components/SpeechBouton";
+import SideStatHeader from "../components/SideStatHeader";
 import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
 import useFocusOnKeyboard from "../hooks/useKeyboard";
@@ -36,6 +37,7 @@ export async function loader({ params }) {
  * @author Alexie GROSBOIS
  */
 const PageChapitre = () => {
+  const [currentTab, setCurrentTab] = useState(0);
   const advancement = useAdvancement();
   const data = useLoaderData();
   const navigate = useNavigate();
@@ -97,50 +99,54 @@ const PageChapitre = () => {
       <div className={styles.pageContainer}>
         <Titre level={1} text={data.titre} className={`${styles.textWhite}`} />
         <TabContainer
+          onTabClick={(index) => {
+            setCurrentTab(index);
+          }}
           tabs={[
             {
               title: "Chapitre",
-              content: (
-                <div className={styles.blocAdapt}>
-                  <div className={styles.imageContainer}>
-                    <Image
-                      url={imageUrl.toString()}
-                      fallbackUrl={livre?.couverture}
-                      height={350}
-                      width={350}
-                    />
-                  </div>
-                  <div className={styles.accessibilityButton}>
-                    <SpeechBouton chapterId={chapterId} />
-                    <div>
-                      <TextSizeBouton
-                        onIncrease={handleIncreaseFontSize}
-                        onDecrease={handleDecreaseFontSize}
-                      />
-                    </div>
-                  </div>
-                  {data.texte.split("\n").map((paragraph, index) => (
-                    <p className={styles.text} key={index}>
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              ),
               icon: BookOpenLine,
             },
             {
               title: "Inventaire",
-              content: <Inventaire />,
               icon: BriefCaseLine,
-            },
-            {
-              title: "Statistiques",
-              content: <Statistiques />,
-              icon: BarChart2Line,
             },
           ]}
         />
-        <Bloc>
+        <div className={styles.chapterAndStatsContainer}>
+          <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
+            <div className={styles.blocAdapt}>
+              <div className={styles.imageContainer}>
+                <Image
+                  url={data.image ?? livre?.couverture}
+                  height={350}
+                  width={350}
+                />
+              </div>
+              <SpeechBouton chapterId={chapterId} />
+              {data.texte.split("\n").map((paragraph, index) => (
+                <p className={styles.text} key={index}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </Bloc>
+          <div
+            className={
+              styles.statsContainer + (currentTab != 1 ? " hideNarrow" : "")
+            }
+          >
+            <Bloc className={styles.blocStat}>
+              <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
+              <Inventaire />
+            </Bloc>
+            <Bloc className={styles.blocStat}>
+              <SideStatHeader title="Statistiques" icon={BarChart2Line} />
+              <Statistiques />
+            </Bloc>
+          </div>
+        </div>
+        <Bloc className={currentTab != 0 ? "hideNarrow" : ""}>
           <div className={styles.actionContainer}>
             {data.actions.length > 0 ? (
               data.actions.map((action, index) => (
