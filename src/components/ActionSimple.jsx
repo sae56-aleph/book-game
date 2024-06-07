@@ -9,9 +9,6 @@ import useKeyboard from "../hooks/useKeyboard";
  */
 const ActionSimple = ({ tabIndex, target, text, onClick }) => {
   const ref = useRef(null);
-  // const handleKeyboard = () => {
-  //   ;
-  // };
   useKeyboard([49 + tabIndex, 97 + tabIndex], () => ref.current?.focus());
 
   const handleClick = () => {

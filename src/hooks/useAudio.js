@@ -57,9 +57,6 @@ const useAudio = ({ url, eager = false }) => {
     };
 
     const togglePlay = () => {
-        console.log("Je suis appelé !")
-        console.log("URL: ", url)
-
         if (!url) return;
 
         if (isPlaying) pause();
