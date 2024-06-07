@@ -8,7 +8,7 @@ import styles from "./TabContainer.module.css";
  * Prends en paramètre un tableau avec des objets
  * @author Alexie GROSBOIS
  */
-const TabContainer = ({ tabs, onTabClick }) => {
+const TabContainer = ({ tabs, onTabClick, style }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleOnClick = (index) => {
@@ -17,8 +17,8 @@ const TabContainer = ({ tabs, onTabClick }) => {
   };
 
   return (
-    <div className="showNarrow">
-      <div className={styles.onglet}>
+    <div className="showNarrow" style={style}>
+      <div className={styles.onglet} style={style}>
         {tabs.map((tab, index) => (
           <Tab
             text={tab.title}
@@ -35,6 +35,7 @@ const TabContainer = ({ tabs, onTabClick }) => {
 
 TabContainer.propTypes = {
   tabs: PropTypes.array.isRequired,
+  style: PropTypes.string,
 };
 
 export default TabContainer;

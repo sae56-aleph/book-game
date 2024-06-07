@@ -6,7 +6,6 @@ import Bloc from "../components/Bloc";
 import Image from "../components/Image";
 import BriefCaseLine from "../icons/briefcase-line.svg?react";
 import BarChart2Line from "../icons/bar-chart-2-line.svg?react";
-import ActionSimple from "../components/ActionSimple";
 import TabContainer from "../components/TabContainer";
 import BookOpenLine from "../icons/book-open-line.svg?react";
 import Layout from "../components/Layout";
@@ -21,21 +20,17 @@ import SpeechBouton from "../components/SpeechBouton";
 import SideStatHeader from "../components/SideStatHeader";
 import TextSizeBouton from "../components/TextSizeBouton";
 import useTitle from "../hooks/useTitle";
-import useFocusOnKeyboard from "../hooks/useKeyboard";
+import useHighContrast from "../hooks/useHighContrast";
+import HighContrastBouton from "../components/HighContrastBouton";
 
 export async function loader({ params }) {
   const { chapterId } = params;
-
   const url = new URL("section/" + chapterId, import.meta.env.VITE_API_URL);
   const response = await fetch(url);
   const data = await response.json();
   return data;
 }
 
-/**
- * Affiche un chapitre avec choix multiple
- * @author Alexie GROSBOIS
- */
 const PageChapitre = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const advancement = useAdvancement();
@@ -45,6 +40,7 @@ const PageChapitre = () => {
   const livre = useLivreContext();
   const [previousChapterName, setPreviousChapterName] = useState("");
   const [fontSize, setFontSize] = useState(16);
+  const [isHighContrast, toggleHighContrast] = useHighContrast();
 
   const imageUrl = new URL(
     `/section/${chapterId}/image`,
@@ -53,12 +49,9 @@ const PageChapitre = () => {
 
   useEffect(() => {
     if (!advancement) return;
-
     setPreviousChapterName(advancement.chapterName ?? "Prologue");
     advancement.chapterId = chapterId;
     advancement.chapterName = data.titre;
-
-    // Mettre à jour les variables si besoin
     data.updates.forEach((update) => {
       const oldValue = parseInt(advancement.variables.get(update.nom));
       advancement.variables.set(update.nom, parseInt(update.valeur) + oldValue);
@@ -85,6 +78,24 @@ const PageChapitre = () => {
     element.style.fontSize = `${fontSize}px`;
   }, [fontSize]);
 
+  useEffect(() => {
+    const element = document.documentElement;
+    const body = document.body;
+    const root = document.getElementById("root");
+
+    if (isHighContrast) {
+      body.style.backgroundColor = "black";
+      body.style.backgroundImage = "none";
+      element.style.backgroundColor = "black";
+      if (root) root.style.backgroundColor = "black";
+    } else {
+      body.style.backgroundColor = "";
+      body.style.backgroundImage =
+        "linear-gradient(129deg, #291745 18.48%, #491845 83.36%)";
+      element.style.backgroundColor = "";
+      if (root) root.style.backgroundColor = "";
+    }
+  }, [isHighContrast]);
   const handleIncreaseFontSize = () =>
     setFontSize((prev) => Math.min(prev + 1, 24));
   const handleDecreaseFontSize = () =>
@@ -96,9 +107,13 @@ const PageChapitre = () => {
         <strong>Précendent : </strong>
         {previousChapterName ?? "Prologue"}
       </p>
-      <div className={styles.pageContainer}>
-        <Titre level={1} text={data.titre} className={`${styles.textWhite}`} />
+      <div
+        className={styles.pageContainer}
+        style={{ backgroundColor: isHighContrast ? "black" : "" }}
+      >
+        <Titre level={1} text={data.titre} className={styles.textWhite} />
         <TabContainer
+          style={{ backgroundColor: isHighContrast ? "black" : "" }}
           onTabClick={(index) => {
             setCurrentTab(index);
           }}
@@ -114,14 +129,23 @@ const PageChapitre = () => {
           ]}
         />
         <div className={styles.chapterAndStatsContainer}>
-          <Bloc className={currentTab != 0 ? " hideNarrow" : ""}>
-            <div className={styles.blocAdapt}>
+          <Bloc
+            className={currentTab != 0 ? " hideNarrow" : ""}
+            highContrast={isHighContrast}
+          >
+            <div
+              className={styles.blocAdapt}
+              style={{
+                backgroundColor: isHighContrast ? "black" : "",
+              }}
+            >
               <div className={styles.imageContainer}>
                 <Image url={imageUrl.toString()} height={350} width={350} />
               </div>
               <span className={styles.accessibilityButton}>
                 <SpeechBouton chapterId={chapterId} />
                 <span>
+                  <HighContrastBouton toggleHighContrast={toggleHighContrast} />
                   <TextSizeBouton
                     onIncrease={handleIncreaseFontSize}
                     onDecrease={handleDecreaseFontSize}
@@ -129,7 +153,14 @@ const PageChapitre = () => {
                 </span>
               </span>
               {data.texte.split("\n").map((paragraph, index) => (
-                <p className={styles.text} key={index}>
+                <p
+                  className={styles.text}
+                  key={index}
+                  style={{
+                    backgroundColor: isHighContrast ? "black" : "",
+                    color: isHighContrast ? "white" : "",
+                  }}
+                >
                   {paragraph}
                 </p>
               ))}
@@ -140,17 +171,20 @@ const PageChapitre = () => {
               styles.statsContainer + (currentTab != 1 ? " hideNarrow" : "")
             }
           >
-            <Bloc className={styles.blocStat}>
+            <Bloc className={styles.blocStat} highContrast={isHighContrast}>
               <SideStatHeader title="Inventaire" icon={BriefCaseLine} />
               <Inventaire />
             </Bloc>
-            <Bloc className={styles.blocStat}>
+            <Bloc className={styles.blocStat} highContrast={isHighContrast}>
               <SideStatHeader title="Statistiques" icon={BarChart2Line} />
               <Statistiques />
             </Bloc>
           </div>
         </div>
-        <Bloc className={currentTab != 0 ? "hideNarrow" : ""}>
+        <Bloc
+          className={currentTab != 0 ? "hideNarrow" : ""}
+          highContrast={isHighContrast}
+        >
           <div className={styles.actionContainer}>
             {data.actions.length > 0 ? (
               data.actions.map((action, index) => (
@@ -168,6 +202,7 @@ const PageChapitre = () => {
                 icon={ArrowGoBack}
                 iconPosition="right"
                 onClick={handleRestart}
+                style={{ color: isHighContrast ? "white" : "" }}
               />
             )}
           </div>

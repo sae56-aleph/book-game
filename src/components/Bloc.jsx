@@ -7,13 +7,21 @@ import PropTypes from "prop-types";
  * @author Alexie GROSBOIS
  */
 
-const Bloc = ({ children, className }) => {
-  return <div className={`${styles.bloc} ${className}`}>{children}</div>;
+const Bloc = ({ children, className, style, highContrast = false }) => {
+  const highContrastClass = highContrast ? styles.high_contrast : "";
+  const blocClass = `${styles.bloc} ${highContrastClass} ${className}`;
+
+  return (
+    <div className={blocClass} style={style}>
+      {children}
+    </div>
+  );
 };
 
 Bloc.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  style: PropTypes.string,
 };
 
 export default Bloc;
