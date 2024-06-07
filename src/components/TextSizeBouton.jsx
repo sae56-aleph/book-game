@@ -22,6 +22,7 @@ const TextSizeBouton = ({ onIncrease, onDecrease }) => {
         style={buttonStyle}
         onClick={onDecrease}
         aria-label="Decrease text size"
+        title="Diminuer la taille de la police (A)"
       >
         <Minus height={18} width={18} />
       </button>
@@ -31,6 +32,7 @@ const TextSizeBouton = ({ onIncrease, onDecrease }) => {
         style={buttonStyle}
         onClick={onIncrease}
         aria-label="Increase text size"
+        title="Augmenter la taille de la police (Z)"
       >
         <Plus height={18} width={18} />
       </button>

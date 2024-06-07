@@ -29,6 +29,7 @@ const SpeechBouton = ({ chapterId }) => {
       className={styles.bouton}
       onClick={() => togglePlay()}
       style={{ marginBottom: 14 }}
+      title="Synthèse vocale (T)"
     >
       {isLoading ? (
         <Chargement height={18} width={18} />
