@@ -11,26 +11,30 @@ import useKeyboard from "../hooks/useKeyboard";
  * Affiche un dé et le bouton pour le lancer
  * @author Enzo MAROS
  */
-const LanceurDe = ({ onFinish, isDisabled }) => {
-  const { face, rolling, start } = useRollDice(onFinish);
+const LanceurDe = ({ qttDes, onFinish, isDisabled }) => {
+  const { faces, rolling, start } = useRollDice(qttDes, onFinish);
   useKeyboard([32], start);
 
   return (
     <div className={styles.actionDe}>
       <Bouton
         icon={DiceFillIcon}
-        text={rolling ? "Lancement..." : "Lancer le dé"}
+        text={rolling ? "Lancement..." : "Lancer les dés"}
         onClick={() => start()}
         isDisabled={rolling || isDisabled}
       />
-
-      <De face={face.toString()} />
+      <div className={styles.dicesContainer}>
+        {faces.map((f, index) => (
+          <De key={index} face={f.toString()} />
+        ))}
+      </div>
     </div>
   );
 };
 
 LanceurDe.propTypes = {
   onFinish: PropTypes.func,
+  qttDes: PropTypes.number.isRequired,
 };
 
 export default LanceurDe;
