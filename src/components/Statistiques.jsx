@@ -31,7 +31,6 @@ const Icone = ({ icone, fill = true }) => {
  * Affiche une entrée de l'inventaire.
  */
 const EntreeStats = ({ nom, icone, value }) => {
-  console.log(value);
   const iconCount = 6;
   const icones = [];
 

@@ -48,8 +48,6 @@ const PageChapitre = () => {
     import.meta.env.VITE_API_URL
   );
 
-  console.log(chapterId);
-
   useEffect(() => {
     if (!advancement) return;
 
