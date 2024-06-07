@@ -28,3 +28,7 @@ kbd {
     padding: 2px 4px;
     white-space: nowrap;
 }
+
+.high_contrast {
+    color: white;
+}

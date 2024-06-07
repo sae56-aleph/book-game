@@ -1,24 +1,14 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { HighContrastContext } from "../contexts/HighContrastContext";
 
 const useHighContrast = () => {
-    const [isHighContrast, setIsHighContrast] = useState(false);
+    const context = useContext(HighContrastContext);
 
-    useEffect(() => {
-        const savedState = localStorage.getItem("highContrast");
-        if (savedState) {
-            setIsHighContrast(JSON.parse(savedState));
-        }
-    }, []);
+    if (!context) {
+        throw new Error("useHighContrast doit être dans HighContrastProvider");
+    }
 
-    useEffect(() => {
-        localStorage.setItem("highContrast", isHighContrast);
-    }, [isHighContrast]);
-
-    const toggleHighContrast = () => {
-        setIsHighContrast((prev) => !prev);
-    };
-
-    return [isHighContrast, toggleHighContrast];
+    return context;
 };
 
 export default useHighContrast;
