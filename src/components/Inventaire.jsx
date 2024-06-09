@@ -18,9 +18,20 @@ const Icone = ({ icone, fill = true }) => {
  */
 const EntreeInventaire = ({ nom, icone }) => {
   return (
-    <div className={styles.entree}>
+    <div className={styles.entree + " " + styles.objAdded}>
       <Icone icone={icone} />
       <strong>{nom}</strong>
+    </div>
+  );
+};
+
+/**
+ * Indique qu'il n'y a pas d'objet(s) dans l'inventaire.
+ */
+const NoEntryInventaire = ({ text }) => {
+  return (
+    <div className={styles.noEntry}>
+      <p className="noItem">{text}</p>
     </div>
   );
 };
@@ -45,9 +56,13 @@ const Inventaire = () => {
 
   return (
     <div className={styles.inventaire}>
-      {inventory.map(({ nom, icone }, index) => (
-        <EntreeInventaire key={index} nom={nom} icone={icone} />
-      ))}
+      {inventory.length > 0 ? (
+        inventory.map(({ nom, icone }, index) => (
+          <EntreeInventaire key={index} nom={nom} icone={icone} />
+        ))
+      ) : (
+        <NoEntryInventaire text="Aucun objet" />
+      )}
     </div>
   );
 };

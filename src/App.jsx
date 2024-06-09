@@ -10,6 +10,7 @@ import PageChapitre, {
 import PageError404 from "./components/PageErreur404.jsx";
 import CustomErrorBoundary from "./components/CustomErrorBoundary.jsx";
 import LivreProvider from "./contexts/LivreProvider.jsx";
+import HighContrastProvider from "./contexts/HighContrastProvider.jsx";
 
 const createRouter = import.meta.env.DEV
   ? createHashRouter
@@ -35,7 +36,9 @@ function App() {
   return (
     <CustomErrorBoundary>
       <LivreProvider>
-        <RouterProvider router={router} />;
+        <HighContrastProvider>
+          <RouterProvider router={router} />
+        </HighContrastProvider>
       </LivreProvider>
     </CustomErrorBoundary>
   );

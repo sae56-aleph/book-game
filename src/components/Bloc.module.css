@@ -1,5 +1,11 @@
 .bloc {
     background-color: white;
+    border: 1px solid white;
     border-radius: 30px;
     padding: 40px 45px;
+}
+
+.high_contrast {
+    background-color: black;
+    color: white;
 }

@@ -3,6 +3,7 @@ import styles from "./ActionEnigme.module.css";
 import PropTypes from "prop-types";
 import Bouton from "./Bouton";
 import Input from "./Input";
+import { Form } from "react-router-dom";
 
 const ERROR_MESSAGE =
   "Arf ! La réponse que vous avez indiqué est mauvaise ! Essayer à nouveau.";
@@ -42,15 +43,15 @@ const ActionEnigme = ({ onNextChapter, target, id }) => {
 
   return (
     <div>
-      <div className={`${styles.field}`}>
+      <Form className={`${styles.field}`} onSubmit={() => setSubmitted(true)}>
         <Input
           placeholder="Inscrivez votre réponse"
           onChange={handleInputChange}
           value={content}
           style={{ borderColor: error ? "red" : "" }}
         />
-        <Bouton text="Valider" onClick={() => setSubmitted(true)} />
-      </div>
+        <Bouton text="Valider" />
+      </Form>
       {error && <div className={`${styles.error}`}>{error}</div>}
     </div>
   );

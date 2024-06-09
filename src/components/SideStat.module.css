@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    font-family: "Quicksand";
+    font-weight: bolder;
+    font-size: larger;
+    text-align: center;
+}
+
+.headerContainer {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.iconAndTitleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}

@@ -5,7 +5,7 @@
 .text {
     font-family: "Quicksand";
     text-align: justify;
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 125%;
     margin-top: 0;
 }
@@ -33,11 +33,10 @@
     gap: 20px;
 }
 
-.actionContainer {
+.accessibilityButton {
     display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 10px;
+    justify-content: space-between;
+    min-width: fit-content;
 }
 
 .pageContainer {
@@ -45,4 +44,22 @@
     flex-direction: column;
     gap: 30px;
     margin-bottom: 20px;
+}
+
+.chapterAndStatsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.statsContainer {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blocStat {
+    flex: 1;
 }

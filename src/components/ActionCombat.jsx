@@ -5,45 +5,66 @@ import PropTypes from "prop-types";
 import useAdvancement from "../hooks/useAdvancement";
 import Bouton from "./Bouton";
 
-const Etape = ({ onFinish, title }) => {
-  const [resultatD1, setResultatD1] = useState(null);
-  const [resultatD2, setResultatD2] = useState(null);
+const QTT_DES_COMBAT = 2;
+
+const RED_COLOR = "#c40000";
+const GREEN_COLOR = "#009900";
+
+const Etape = ({ onFinish, title, subject, color }) => {
+  const [resultatsDes, setResultatsDes] = useState(
+    Array(QTT_DES_COMBAT).fill(null)
+  );
 
   useEffect(() => {
-    if (resultatD1 && resultatD2) {
+    if (allElementsSet(resultatsDes)) {
       const timeout = setTimeout(() => {
-        onFinish(resultatD1 + resultatD2);
+        onFinish(resultatsDes.reduce((partialSum, a) => partialSum + a, 0)); //Somme des dés
       }, 2000);
       return () => {
         clearTimeout(timeout);
       };
     }
-  }, [resultatD1, resultatD2]);
+  }, [resultatsDes]);
   return (
     <>
       <h3 className={styles.actionCombat} style={{ textAlign: "center" }}>
-        {title}
+        {title + " "}
+        <span className={styles.subject} style={{ color: color }}>
+          {subject}
+        </span>
       </h3>
       <div className={styles.dice}>
-        <LanceurDe isDisabled={resultatD1 != null} onFinish={setResultatD1} />
-        <LanceurDe isDisabled={resultatD2 != null} onFinish={setResultatD2} />
+        <LanceurDe
+          isDisabled={allElementsSet(resultatsDes)}
+          onFinish={setResultatsDes}
+          qttDes={QTT_DES_COMBAT}
+        />
       </div>
     </>
   );
 };
 
 const EtapeEnnemi = ({ onFinish }) => {
-  return <Etape title="Lancer les dés pour votre ennemi" onFinish={onFinish} />;
+  return (
+    <Etape
+      title="Lancer les dés pour votre"
+      onFinish={onFinish}
+      subject="ennemi"
+      color={RED_COLOR}
+    />
+  );
 };
 
 const EtapeJoueur = ({ onFinish }) => {
   const advancement = useAdvancement(10);
   return (
     <Etape
-      title="Lancer les dés pour vous"
+      title="Lancer les dés pour"
       onFinish={(somme) => {
         onFinish(somme + parseInt(advancement.variables.get("FORCE")));
       }}
+      subject="vous"
+      color={GREEN_COLOR}
     />
   );
 };
@@ -108,6 +129,14 @@ const ActionCombat = ({ targetSuccess, targetFailure, onNextChapter }) => {
       )}
     </>
   );
+};
+
+const allElementsSet = (arr) => {
+  const nullishElements = arr.filter(
+    (element) => element === null || element === undefined
+  );
+
+  return nullishElements.length === 0;
 };
 
 ActionCombat.propTypes = {

@@ -1,6 +1,7 @@
 import styles from "./Bouton.module.css";
 import React from "react";
 import PropTypes from "prop-types";
+import useHighContrast from "../hooks/useHighContrast";
 
 /**
  * Bouton
@@ -8,25 +9,22 @@ import PropTypes from "prop-types";
  */
 const Bouton = ({
   text,
-  onClick,
-  icon,
+  className,
+  icon: Icon,
   iconPosition = "left",
   isDisabled = false,
-  className,
+  ...props
 }) => {
-  const Icon = icon;
+  const { highContrast } = useHighContrast();
+  const hightContrastClass = highContrast ? styles.high_contrast : "";
+  const disabledClass = isDisabled ? styles.disabled : "";
+  const boutonClass = `${styles.bouton} ${disabledClass} ${hightContrastClass} ${className}`;
 
   return (
-    <button
-      className={`${styles.bouton} ${
-        isDisabled && styles.disabled
-      } ${className}`}
-      onClick={onClick}
-      disabled={isDisabled}
-    >
-      {icon && iconPosition === "left" && <Icon height={18} width={18} />}
+    <button className={boutonClass} disabled={isDisabled} {...props}>
+      {Icon && iconPosition === "left" && <Icon height={18} width={18} />}
       {text}
-      {icon && iconPosition === "right" && <Icon height={18} width={18} />}
+      {Icon && iconPosition === "right" && <Icon height={18} width={18} />}
     </button>
   );
 };
@@ -34,10 +32,8 @@ const Bouton = ({
 Bouton.propTypes = {
   icon: PropTypes.any,
   iconPosition: PropTypes.oneOf(["left", "right"]),
-  onClick: PropTypes.func,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   isDisabled: PropTypes.bool,
-  className: PropTypes.string,
 };
 
 export default Bouton;
